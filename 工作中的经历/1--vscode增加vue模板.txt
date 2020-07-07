@@ -1,0 +1,29 @@
+https://www.cnblogs.com/luzhanshi/p/12016281.html
+
+1. 用户代码片段。
+2. 搜索栏中输入vue。
+3. 在新出来的页面，保留大括号，其余删除。粘贴下面的代码。
+{
+	"vue-start-template": {
+		"prefix": "!vue",
+		"body": [
+			"<template>",
+			"<div class=''>",
+			"</div>",
+			"</template>",
+			"<script>",
+			"export default {",
+				"name : '', ",
+				"data(){",
+				" return {",
+				"}",
+				"}",
+			"};",
+			"</script>",
+			"<style>",
+			"@import ''",
+			"</style>"	
+		],
+		"description": "vue新文件模板"
+	}
+}
