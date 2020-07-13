@@ -666,7 +666,1333 @@ void main() {
 
 # 第六篇 list, set, map详解，forEach, map, where, any, every
 
+## List
+
+​	List的下标index，从0开始。
+
+### List初始化
+
 ```dart
+#1.创建并且初始化数组List
+# 常量数组形式创建并且初始化数组。
+List<String> list1 = ["Java", "Javascript", "object-c", "dart"];
+# 当然，常量形式的数组，内部元素可以是变量。
+const temp = "123";
+List<String> list2 = ["Java", "Javascript", "object-c", "dart", temp];
+# 使用new方式创建数组，可以指定数组的初始长度。可以通过addAll()添加多个元素。
+var list3 = new List();
+list1.add(["Java", "Javascript", "object-c", "dart"]);
+```
+
+
+
+### List常用属性
+
+| 常用属性   | 说明                                                         |
+| ---------- | ------------------------------------------------------------ |
+| length     | 获取List的长度。                                             |
+| reversed   | 获取数组的逆向集合，返回一个Iterable对象。可以通过iterable.toList()转成List。 |
+| isEmpty    | List的长度是否为0。                                          |
+| isNotEmpty | List的长度是否不为0。                                        |
+| first      | List中的第一个元素值。                                       |
+| last       | List中的最后一个元素值。                                     |
+| iterator   | List的遍历器对象。                                           |
+
+```dart
+  /**
+   * 1.常见属性
+   *    length: 获取数组的长度
+   *    reversed： 获取一个逆序的集合。是一个ReversedListIterable对象。
+   *    isEmpty:   判断数组是不是为空。
+   *    isNotEmpty: 判断数组是否不为空。
+   */
+
+  //获取数组的长度
+  var length = list1.length;
+  print("length: $length");
+
+  //获取数组的逆序列表，不直接是一个List对象，而是一个ReveredListIterable对象、
+  Iterable iterable = list1.reversed;
+  print(iterable.runtimeType);
+  Iterator iterator = iterable.iterator;
+  while (iterator.moveNext()) {
+    print("item: ${iterator.current}");
+  }
+  //iterable对象转数组。
+  List<String> reversed = iterable.toList();
+  print(reversed);
+
+  //是否为空
+  bool isEmpty = list1.isEmpty;
+  print("isEmpty: $isEmpty");
+
+  //是否不为空
+  bool isNotEmpty = list1.isNotEmpty;
+  print("isNotEmpty: $isNotEmpty");
+
+  //获取遍历器对象
+  Iterator iterator = list1.iterator;
+ //获取第一个元素
+  String first = list1.first;
+  //获取最后一个元素
+  String last = list1.last;
+	
+  print(list1);
+  print("iterator: $iterator");
+  print("last: $last");
+  print("first: $first");
+  print(list1);
+```
+
+
+
+### List常用方法
+
+```dart
+  /**
+   *  增加
+   *  list.add( e );
+   *  list.addAll( iterable )
+   *  list.insert( index, e )
+   *  list.insertAll( index, iterable )
+   */
+  //增加  list.add();  list.addAll()
+  list1.add("c"); //在数组末尾增加单个元素。
+  list1.addAll(["c++", "go", "perl"]); //在数组末尾增加多个元素
+  print(list1);
+
+  list1.insert(1, "vb"); //在指定index下插入元素。注意：index从0开始。
+  print(list1);
+
+  //set, list, Map.getKeys() 都是iterable对象
+  list1.insertAll(0, list1.reversed); //第二个参数只需要是Iterable对象即可.
+  print(list1);
+
+
+
+/**
+   List 删除元素
+   * 删除
+   * 1. list.removeLast()
+   * 2. list.removeAt( index ) 删除指定index的List中的元素
+   * 3. list.remove( element ) 删除指定element的List中的元素, 且只删除第一个遇到的元素。
+   * 4. list.removeWhere( (value){ } ) 遍历数组，判断数组元素是否需要删除，如果删除返回true，否则返回false。
+   * 5. list.removeRange( 2, 3) //删除一个数组的子集，第一个参数是startIndex，第二个参数是endIndex（注意不是length）。删除范围包含start，不包含end。
+*/
+  print(list1);
+  list1.removeLast(); //删除List最后一个元素、
+  print("===========================  removeLast");
+  print(list1);
+
+  list1.removeAt(list1.length - 1); //
+  list1.removeAt(0);
+  print(list1);
+
+  list1.remove("Java");
+  list1.removeWhere((element) {
+    return element == 'object-c';
+  });
+  print(list1);
+
+  list1.removeRange(2,
+      3); //删除一个数组的子集，第一个参数是startIndex，第二个参数是endIndex（注意不是length）。删除范围包含start，不包含end。
+  print(list1);
+
+
+
+/**
+	List 修改元素
+	1. 通过list[index] = xxx 形式进行修改。
+	2. 批量重置  list.fillRange(0, list.length, "1");
+	3. 批量修改  list.setRange( startIndex, endIndex, iterable<E> iterable, [int skipCount = 0] )
+*/
+List list = list1;
+//通过 list[index] 方式修改
+list[2] = "3456";
+
+//批量重置
+list.fillRange(0, list.length, "1");
+print("fill list: $list");
+
+//批量替换, 替换指定位置的元素。 替换list 与 被替换list 的 index 一一对应
+//通过 list.setRange( startIndex, endIndex, iterable<E> iterable, [int skipCount = 0] )
+list.setRange(1, 3, ["java", "swift", "dart", "eee"] as List<String>);
+print("setRange: $list");
+
+//删除指定范围，并用新的数组插入
+list.replaceRange(1, 3, ["1", "2", "3", "4", "5", "6"] as List<String>);
+print("replaceRange: $list");
+
+
+/**
+	List 查询元素
+*/
+
+
+
+/**
+	List 其它方法
+*/
+```
+
+
+
+### list.dart API文件翻译
+
+```dart
+#list.dart API文件翻译
+part of dart.core;
+
+/**
+ * 一个可索引，有长度的的对象集合。
+ * An indexable collection of objects with a length.
+ *
+ * 这个类的子类实现不同种类的list。
+ * Subclasses of this class implement different kinds of lists.
+ * 最常用的list种类有：
+ * The most common kinds of lists are:
+ *   （1）固定长度的list。 如果尝试去操作改变list的长度，那么就会报错。 
+ * * Fixed-length list.
+ *   An error occurs when attempting to use operations
+ *   that can change the length of the list.
+ *    
+ *   （2）可增长的list， 这个API的全部实现都在这个类中。
+ * * Growable list. Full implementation of the API defined in this class.
+ *
+ *   通过'[]'方式创建一个默认的可增长的list， 持有一个内部的buffer，并且这个buffer在必要的时候
+ * 会增长。这个由增加操作组成的序列，每一次执行均摊常量时间。直接设置长度可能花费成正比的时间用于变更成新长度，
+ * 并且为了接下来的增加操作需要立刻增加 buffer的容量而可能改变内部的容量。
+ *   其它列表实现可能有不同的表现行为。
+ * The default growable list, as created by `[]`, keeps
+ * an internal buffer, and grows that buffer when necessary. This guarantees
+ * that a sequence of [add] operations will each execute in amortized constant
+ * time. Setting the length directly may take time proportional to the new
+ * length, and may change the internal capacity so that a following add
+ * operation will need to immediately increase the buffer capacity.
+ * Other list implementations may have different performance behavior.
+ *
+ * //接下来的代码说明一些列表实现支持， 仅仅是这个API的子集合。
+ * The following code illustrates that some List implementations support
+ * only a subset of the API.
+ *
+ *     List<int> fixedLengthList = new List(5);
+ *     fixedLengthList.length = 0;  // Error
+ *     fixedLengthList.add(499);    // Error
+ *     fixedLengthList[0] = 87;
+ *     List<int> growableList = [1, 2];
+ *     growableList.length = 0;
+ *     growableList.add(499);
+ *     growableList[0] = 87;
+ *
+ * 
+ * 列表是可迭代的。 迭代发生在索引顺序的值上。增删值值不影响循环，但是会改变有效的索引。
+ * 换句话说，在循环步骤之间，改变列表的长度，会导致一个ConcurrentModificationError错误。
+ * 这意味着仅可增长列表能抛出ConcurrentModificationError错误。如果长度临时性改变，并且在
+ * 在继续下一次循环前修复，这个迭代器不能检测到这种行为。
+ * Lists are [Iterable]. Iteration occurs over values in index order. Changing
+ * the values does not affect iteration, but changing the valid
+ * indices&mdash;that is, changing the list's length&mdash;between iteration
+ * steps causes a [ConcurrentModificationError]. This means that only growable
+ * lists can throw ConcurrentModificationError. If the length changes
+ * temporarily and is restored before continuing the iteration, the iterator
+ * does not detect it.
+ *
+ * 
+ * 当数组中一个操作被执行时，总体俩说是不允许改变数组的长度。（增加或者删除元素）
+ * 举个例子： 在一个forEach或者sort被唤起时: 当处于循环中，或者直接迭代它，或者
+ * 贯穿正迭代一个Iterable对象时，改变list的长度，将会被list回退， 从而跳出循环。
+ * It is generally not allowed to modify the list's length (adding or removing
+ * elements) while an operation on the list is being performed,
+ * for example during a call to [forEach] or [sort].
+ * Changing the list's length while it is being iterated, either by iterating it
+ * directly or through iterating an [Iterable] that is backed by the list, will
+ * break the iteration.
+ */
+abstract class List<E> implements EfficientLengthIterable<E> {
+  /**
+   * 根据给予的长度创建一个List.
+   * Creates a list of the given length.
+   *
+   * 如果元素的类型，不是一个可以赋值为null的变量类型，将会抛出一个exception.在这种情况中，
+   * 其它的构造器，比如List.filled()必须被使用。 (List.filled默认就是整个数组所有元素全部赋值为null)
+   * This constructor will throw an exception if [E] is not a nullable type.
+   * In this case, another constructor such as [List.filled] must be used
+   * instead.
+   *
+   * 如果长度被提供，那么被创建的List就是固定长度的；不允许改变list.length的长度,否则报错。
+   * The created list is fixed-length if [length] is provided.
+   *
+   *     List fixedLengthList = new List(3);
+   *     fixedLengthList.length;     // 3
+   *     fixedLengthList.length = 1; // Error
+   *
+   * 
+   * 如果创建List时， length没有指定，那么List的长度为0，且是可增长的。
+   * （允许直接修改list.length属性，如果length变大，则新增元素初始化为null,如果length变小，
+   * 则数组相当于被截断。）
+   * The list has length 0 and is growable if [length] is omitted.
+   *
+   *     List growableList = [];
+   *     growableList.length; // 0;
+   *     growableList.length = 3;
+   *
+   * 
+   * 创建一个可增长的List，并且给予长度，元素都是可以设置为null的类型。 在创建时，仅仅分配
+   * 右边指定的长度。 （ ..表示级联赋值 ）
+   * To create a growable list with a given length, for a nullable element type,
+   * just assign the length right after creation:
+   *
+   *     List growableList = []..length = 500;
+   *
+   * 
+   * 对于元素是不能赋值为null的类型，一种选择是如下：
+   * For a non-nullable element type, an alternative is the following:
+   *
+   *     List<int> growableList = List<int>.filled(500, 0, growable: true);
+   *
+   * 如果提供length值， 那么这个List的length必须不能是负数或者null。
+   * The [length] must not be negative or null, if it is provided.
+   *
+   * 如果这个元素不能nullable，那么长度必须大于0;
+   * If the element type is not nullable, [length] must not be greater than
+   * zero.
+   *
+   * 这个构造器不能被用于null-safe的代码。
+   * 使用List.filled（）方法去创建一个非空的代码。这个需要一个填充值去初始化list的初始值。
+   * 创建一个空的List，使用 `[]` 或者 `List.empty` 创建一个固定长度的List（或者 在运行时检测可增长性）
+   * This constructor cannot be used in null-safe code.
+   * Use [List.filled] to create a non-empty list.
+   * This requires a fill value to initialize the list elements with.
+   * To create an empty list, use `[]` for a growable list or
+   * `List.empty` for a fixed length list (or where growability is determined
+   * at run-time).
+   */
+  external factory List([int? length]);
+
+  /**
+   * 根据传入的length创建一个List，并且使用[fill]填充每一个位置。
+   * Creates a list of the given length with [fill] at each position.
+   *
+   * 这个length必须是一个非负整数。
+   * The [length] must be a non-negative integer.
+   *
+   * 例如：
+   * Example:
+   * ```dart
+   * new List<int>.filled(3, 0, growable: true); // [0, 0, 0]
+   * ```
+   *
+   * 如果[growable]指定为false（默认值也是false），那么创建的List是固定长度的。如果[growable]指定为true，
+   * 则创建可增长的List。
+   * 如果List是可增长的，改变List的长度时，并不会用[fill]初始化新增的元素。
+   * 在创建并且填充之后，这个List并不会不同于其他可增长或者固定长度的List创建使用。
+   * 
+   * 返回的数组的所有值，将共享相同的[fill]值。
+   * The created list is fixed-length if [growable] is false (the default)
+   * and growable if [growable] is true.
+   * If the list is growable, changing its length will not initialize new
+   * entries with [fill].
+   * After being created and filled, the list is no different from any other
+   * growable or fixed-length list created using [List].
+   *
+   * All elements of the returned list share the same [fill] value.
+   * ```
+   * var shared = new List.filled(3, []);
+   * shared[0].add(499);
+   * print(shared);  // => [[499], [499], [499]]
+   * ```
+   *
+   * 你能使用[List.generate(length, (index) => null)]去创建一个List，并用一个新对象去填充每一个元素位置。
+   * You can use [List.generate] to create a list with a new object at
+   * each position.
+   * ```
+   * var unique = new List.generate(3, (_) => []);
+   * unique[0].add(499);
+   * print(unique); // => [[499], [], []]
+   * ```
+   */
+  external factory List.filled(int length, E fill, {bool growable = false});
+
+  /**
+   *  List.empty({bool growable = false});
+   * 
+   * 创建一个空的List。
+   * Creates a new empty list.
+   * 如果[growable] 是 false （默认也是false值）, 这个List将会是固定长度，且长度为0的List。
+   * 如果[growable] 是 true， 这个列表是可增长的 
+   * the list is a fixed-length list of length zero.， 却等价于指定元素类型的空数组、
+   
+   * If [growable] is `false`, which is the default。
+   * If [growable] is `true`, the list is growable and equivalent to `<E>[]`。
+   */
+  @Since("2.8")
+  external factory List.empty({bool growable = false});
+
+  /**
+   * List.from(Iterable elements, {bool growable = true});
+   * 
+   * 创建一个包含所有元素的List。
+   * 所有元素的迭代器提供这些元素的顺序。
+   * 所有的元素，都将是[E]的实例。([E]就是泛型中传入的数据类型)
+   * 这些可迭代的元素自身可能是任何元素类型，所以这个构造器常常用于向下类型转换为一个List.
+   * 
+   * 当[growable]参数为true时, 这个构造器创建一个可增长的List，否则返回一个固定长度的List。
+   * 
+   * Creates a list containing all [elements].
+   * The [Iterator] of [elements] provides the order of the elements.
+   * All the [elements] should be instances of [E].
+   * The `elements` iterable itself may have any element type, so this
+   * constructor can be used to down-cast a `List`, for example as:
+   * ```dart
+   * List<SuperType> superList = ...;
+   * List<SubType> subList =
+   *     new List<SubType>.from(superList.whereType<SubType>());
+   * ```
+   * This constructor creates a growable list when [growable] is true;
+   * otherwise, it returns a fixed-length list.
+   */
+  external factory List.from(Iterable elements, {bool growable = true});
+
+  /**
+   * List.of(Iterable<E> elements, {bool growable = true});
+   * 
+   * 从一个Iterable对象为数据源，创建一个List.
+   * 这个含有数据源的迭代器提供这些数据源的索引顺序。
+   * 当[growable]参数为true时, 这个构造器创建一个可增长的List，否则返回一个固定长度的List。
+   * 
+   * 
+   * Creates a list from [elements].
+   *
+   * The [Iterator] of [elements] provides the order of the elements.
+   *
+   * This constructor creates a growable list when [growable] is true;
+   * otherwise, it returns a fixed-length list.
+   */
+  external factory List.of(Iterable<E> elements, {bool growable = true});
+
+  /**
+   * List.generate(int length, E generator(int index),
+      {bool growable = true});
+   * 
+   * 创建一个含有多个元素的List。
+   * 根据length参数创建一个List，并调用[generator]，在0~leng-1的返回内，、
+   * 以递增的顺序为每个index位置的元素来填充value值。
+   * 
+   * Generates a list of values.
+   *
+   * Creates a list with [length] positions and fills it with values created by
+   * calling [generator] for each index in the range `0` .. `length - 1`
+   * in increasing order.
+   * ```dart
+   * List<int>.generate(3, (int index) => index * index); // [0, 1, 4]
+   * ```
+   * The created list is fixed-length if [growable] is set to false.
+   *
+   * The [length] must be non-negative.
+   */
+  external factory List.generate(int length, E generator(int index),
+      {bool growable = true});
+
+  /**
+   * List.unmodifiable(Iterable elements);
+   * 
+   * 创建一个List，包含Iterable中的数据源，且不再允许修改。
+   * Iterable中的数据源通过Iterator对象提供这些数据的索引顺序。
+   * 一个不可修改的List，不能改变它的元素，以及List长度。
+   * 如果元素自身是不可改变的，那么也会导致List是不可改变的。
+   * 
+   * 
+   * Creates an unmodifiable list containing all [elements].
+   *
+   * The [Iterator] of [elements] provides the order of the elements.
+   *
+   * An unmodifiable list cannot have its length or elements changed.
+   * If the elements are themselves immutable, then the resulting list
+   * is also immutable.
+   */
+  external factory List.unmodifiable(Iterable elements);
+
+  /**
+   * static List<T> castFrom<S, T>(List<S> source) => CastList<S, T>(source);
+   * 适配数据源[source] 成为一个 `List<T>`
+   * 
+   * 任何时候，这个列表将会生成一个不是[T]类型的元素， 这个元素访问将会被抛出。
+   * 
+   * 任何时候，一个[T]类型的值尝试存储到一个已经适配的List中。
+   * 这个存储将会抛出，除非这个值也是[S]类型的一个实例。
+   * 
+   * 如果[source]中所有被访问的元素，实际上都是[T]类型的实例，而且如果所有元素被存储到返回的列表，
+   * 这个列表中的元素实际上都是[T]类型的实例，那么这个返回的List可能会当做一个`List<T>`使用。 
+   * 
+   * Adapts [source] to be a `List<T>`.
+   *
+   * Any time the list would produce an element that is not a [T],
+   * the element access will throw.
+   *
+   * Any time a [T] value is attempted stored into the adapted list,
+   * the store will throw unless the value is also an instance of [S].
+   *
+   * If all accessed elements of [source] are actually instances of [T],
+   * and if all elements stored into the returned list are actually instance
+   * of [S],
+   * then the returned list can be used as a `List<T>`.
+   */
+
+  static List<T> castFrom<S, T>(List<S> source) => CastList<S, T>(source);
+
+  /**
+   * static void copyRange<T>(List<T> target, int at, List<T> source,
+   *   [int? start, int? end]) 
+   *
+   * 复制一个List的一个范围子数组到其它的数组。
+   *  
+   * 这是一个功能性的方法，通常被用于实现像[setRange]类似的方法
+   * 
+   * 这个范围从[start]到[end]，必须是个数据源[source]的有效范围，而且从指定位置的`end-start`有足够的空间。
+   * 如果[start]不存在，那么默认为0；
+   * 如果[end]不存在，那么默认为source.length.
+   * 
+   * 如果[source]与[target]是同一个list， 为了target的范围是包含source的返回的初始化内容作为结束 ，重叠source和target范围是好的做法。
+   * 否则，元素复制的顺序是不能保证的。
+   * 
+   * 
+   * 
+   * Copy a range of one list into another list.
+   *
+   * This is a utility function that can be used to implement methods like
+   * [setRange].
+   *
+   * The range from [start] to [end] must be a valid range of [source],
+   * and there must be room for `end - start` elements from position [at].
+   * If [start] is omitted, it defaults to zero.
+   * If [end] is omitted, it defaults to [source.length].
+   *
+   * If [source] and [target] is the same list, overlapping source and target
+   * ranges are respected so that the target range ends up containing the
+   * initial content of the source range.
+   * Otherwise the order of element copying is not guaranteed.
+   */
+  static void copyRange<T>(List<T> target, int at, List<T> source,
+      [int? start, int? end]) {
+    start ??= 0;
+    end = RangeError.checkValidRange(start, end, source.length);
+    if (end == null) {
+      // TODO(dart-lang/language#440): Remove when promotion works.
+      throw "unreachable";
+    }
+    int length = end - start;
+    if (target.length < at + length) {
+      throw ArgumentError.value(target, "target",
+          "Not big enough to hold $length elements at position $at");
+    }
+    if (!identical(source, target) || start >= at) {
+      for (int i = 0; i < length; i++) {
+        target[at + i] = source[start + i];
+      }
+    } else {
+      for (int i = length; --i >= 0;) {
+        target[at + i] = source[start + i];
+      }
+    }
+  }
+
+  /**
+   * static void writeIterable<T>(List<T> target, int at, Iterable<T> source)
+   * 写入一个可迭代的对象的数据源到List中。
+   * 
+   * 这是一个功能性方法，常被用于实现像[setAll]方法。
+   * 
+   * 数据源[source]的所有数据，被写入到 [target]的指定位置。
+   * 数据源[source]的长度不能长于[target]的长度。
+   * 
+   * 如果数据源[source]是一个列表，那么使用[copyRange]方法可能更加高效。
+   * 
+   * 
+   * 
+   * Write the elements of an iterable into a list.
+   *
+   * This is a utility function that can be used to implement methods like
+   * [setAll].
+   *
+   * The elements of [source] are written into [target] from position [at].
+   * The [source] must not contain more elements after writing the last
+   * position of [target].
+   *
+   * If the source is a list, the [copyRange] function is likely to be more
+   * efficient.
+   */
+  static void writeIterable<T>(List<T> target, int at, Iterable<T> source) {
+    RangeError.checkValueInInterval(at, 0, target.length, "at");
+    int index = at;
+    int targetLength = target.length;
+    for (var element in source) {
+      if (index == targetLength) {
+        throw IndexError(targetLength, target);
+      }
+      target[index] = element;
+      index++;
+    }
+  }
+
+  /**
+   * List<R> cast<R>();
+   * 返回这个List的视图，作为一个所有元素是[R]类型的实例的List。 
+   * 
+   * 如果这个List仅仅包含[R]类型的实例，所有读操作将会正确的工作。
+   * 如果任何操作尝试访问一个非[R]类型的实例，这个访问将会被throw所替代。
+   * 
+   * 这个List，通过add，addAll添加元素，必须是[R]类型的实例作为有效参数给[add,addAll]函数。
+   并且他们必须是[E]类型的实例，而被这个List所能接受。
+   * 
+   * 典型的实现就是 `List.castFrom<E, R>(this)`
+   * 
+   * 
+   * 
+   * 
+   * Returns a view of this list as a list of [R] instances.
+   *
+   * If this list contains only instances of [R], all read operations
+   * will work correctly. If any operation tries to access an element
+   * that is not an instance of [R], the access will throw instead.
+   *
+   * Elements added to the list (e.g., by using [add] or [addAll])
+   * must be instance of [R] to be valid arguments to the adding function,
+   * and they must be instances of [E] as well to be accepted by
+   * this list as well.
+   *
+   * Typically implemented as `List.castFrom<E, R>(this)`.
+   */
+  List<R> cast<R>();
+
+  /**
+   * E operator [](int index);
+   * 返回List中指定index的元素。
+   * 如果这个[index]越界，则会抛出一个[RangeError]错误。
+   * 
+   * Returns the object at the given [index] in the list
+   * or throws a [RangeError] if [index] is out of bounds.
+   */
+  E operator [](int index);
+
+  /**
+   * void operator []=(int index, E value);
+   * 根据[index]参数，将[value]设置到List的指定位置。
+   * 
+   * 如果[index]位置越界，那么抛出[RangeError]错误。
+   * 
+   * 
+   * Sets the value at the given [index] in the list to [value]
+   * or throws a [RangeError] if [index] is out of bounds.
+   */
+  void operator []=(int index, E value);
+
+  /**
+   * void set first(E value);
+   * 更新List第一个位置的值。
+   * 等价于 `list[0] = value`
+   * 这个List不能为空。
+   * 
+   * 
+   * Updates the first position of the list to contain [value].
+   *
+   * Equivalent to `theList[0] = value;`.
+   *
+   * The list must be non-empty.
+   */
+  void set first(E value);
+
+  /**
+   * void set last(E value);
+   * 更新List的最后一个元素的值。 
+   * 等价于 `theList[theList.length - 1] = value;`.
+   * 这个List必须非空。
+   * 
+   * 
+   * Updates the last position of the list to contain [value].
+   *
+   * Equivalent to `theList[theList.length - 1] = value;`.
+   *
+   * The list must be non-empty.
+   */
+  void set last(E value);
+
+  /**
+   * int get length;
+   * 获取这个List中元素的数量。
+   * 这个List中有效的index从[0]到[length-1]
+   * 
+   * 
+   * The number of objects in this list.
+   *
+   * The valid indices for a list are `0` through `length - 1`.
+   */
+  int get length;
+
+  /**
+   * set length(int newLength);
+   * 
+   * 改变List的长度
+   * 
+   * 如果[newLength]的长度大于当前的[length],新增元素被初始化为null。
+   * 如果新增的元素，不允许被赋值为null，那么新增长度将会失败。
+   * 
+   * 如果是固定长度的List看，或者其他增大List，但是不能用null初始化时，抛出一个[UnsupportedError]错误。
+   * 
+   * 
+   * 
+   * Changes the length of this list.
+   *
+   * If [newLength] is greater than
+   * the current length, entries are initialized to `null`.
+   * Increasing the length fails if the element type does not allow `null`.
+   *
+   * Throws an [UnsupportedError] if the list is fixed-length or
+   * if attempting tp enlarge the list when `null` is not a valid element.
+   */
+  set length(int newLength);
+
+  /**
+   * void add(E value);
+   * 增加一个元素到List的末尾。
+   * 长度增1。
+   * 
+   * 如果是固定长度的List，则抛出一个[UnsupportedError]错误。
+   * 
+   * 
+   * Adds [value] to the end of this list,
+   * extending the length by one.
+   *
+   * Throws an [UnsupportedError] if the list is fixed-length.
+   */
+  void add(E value);
+
+  /**
+   * void addAll(Iterable<E> iterable);
+   * 将一个可迭代的对象的数据源，追加到这个List的末尾。
+   * 
+   * 增加[iterable]数据源中元素的个数到这个List的[length]。
+   * 如果这个List是固定长度的，那么抛出一个[UnsupportedError]错误。
+   * 
+   * 
+   * Appends all objects of [iterable] to the end of this list.
+   *
+   * Extends the length of the list by the number of objects in [iterable].
+   * Throws an [UnsupportedError] if this list is fixed-length.
+   */
+  void addAll(Iterable<E> iterable);
+
+  /**
+   * Iterable<E> get reversed;
+   * 返回一个可迭代的对象；数据源是这个List的反向顺序的所有元素。
+   * 
+   * Returns an [Iterable] of the objects in this list in reverse order.
+   */
+  Iterable<E> get reversed;
+
+  /**
+   * void sort([int compare(E a, E b)?]);
+   * 通过[compare]函数指定顺序，来排序这个List。
+   * 
+   * 这个[compare]函数必须作为一个比较器[comparator]来执行。
+   * 
+   * 如果[compare]被遗漏，那么默认的List实现是使用[Comparable.compare]. 
+   * 
+   * 一个比较器[Comparator], 用于比较对象如果相等返回0，甚至用于两个不同的对象。
+   * 排序函数不能保证是稳定的，对于不同的对象， 做相等比较时，结果可能出现任何顺序。
+   *
+   * 
+   *  
+   * Sorts this list according to the order specified by the [compare] function.
+   *
+   * The [compare] function must act as a [Comparator].
+   *
+   *     List<String> numbers = ['two', 'three', 'four'];
+   *     // Sort from shortest to longest.
+   *     numbers.sort((a, b) => a.length.compareTo(b.length));
+   *     print(numbers);  // [two, four, three]
+   *
+   * The default List implementations use [Comparable.compare] if
+   * [compare] is omitted.
+   *
+   *     List<int> nums = [13, 2, -11];
+   *     nums.sort();
+   *     print(nums);  // [-11, 2, 13]
+   *
+   * A [Comparator] may compare objects as equal (return zero), even if they
+   * are distinct objects.
+   * The sort function is not guaranteed to be stable, so distinct objects
+   * that compare as equal may occur in any order in the result:
+   *
+   *     List<String> numbers = ['one', 'two', 'three', 'four'];
+   *     numbers.sort((a, b) => a.length.compareTo(b.length));
+   *     print(numbers);  // [one, two, four, three] OR [two, one, four, three]
+   */
+  void sort([int compare(E a, E b)?]);
+
+  /**
+   *  void shuffle([Random? random]);
+   *  随机打乱List的元素位置。（ 直接对该List生效。） 
+   * 
+   * Shuffles the elements of this list randomly.
+   */
+  void shuffle([Random? random]);
+
+  /**
+   *  int indexOf(E element, [int start = 0]);
+   *  
+   * 返回元素在List中的索引index。
+   * 
+   * 从List的开始到结束搜索， 第一次遇到这个元素，则返回该index。
+   *     List<String> notes = ['do', 're', 'mi', 're'];
+   *     notes.indexOf('re');    // 1
+   *     notes.indexOf('re', 2); // 3
+   * 如果元素在数组中不存在，则返回-1.
+   * 
+   * 
+   * Returns the first index of [element] in this list.
+   *
+   * Searches the list from index [start] to the end of the list.
+   * The first time an object [:o:] is encountered so that [:o == element:],
+   * the index of [:o:] is returned.
+   *     List<String> notes = ['do', 're', 'mi', 're'];
+   *     notes.indexOf('re');    // 1
+   *     notes.indexOf('re', 2); // 3
+   *
+   * Returns -1 if [element] is not found.
+   *
+   *     notes.indexOf('fa');    // -1
+   */
+  int indexOf(E element, [int start = 0]);
+
+  /**
+   * int indexWhere(bool test(E element), [int start = 0]);
+   * 返回找到的第一个匹配到的元素的index。
+   * 
+   * 从指定的[start]索引开始搜索list， 返回遇到匿名函数返回true时的index。
+   * 如果没有找到，那么就返回-1.
+   * 
+   * 
+   * Returns the first index in the list that satisfies the provided [test].
+   *
+   * Searches the list from index [start] to the end of the list.
+   * The first time an object `o` is encountered so that `test(o)` is true,
+   * the index of `o` is returned.
+   *
+   * ```
+   * List<String> notes = ['do', 're', 'mi', 're'];
+   * notes.indexWhere((note) => note.startsWith('r'));       // 1
+   * notes.indexWhere((note) => note.startsWith('r'), 2);    // 3
+   * ```
+   *
+   * Returns -1 if [element] is not found.
+   * ```
+   * notes.indexWhere((note) => note.startsWith('k'));    // -1
+   * ```
+   */
+  int indexWhere(bool test(E element), [int start = 0]);
+
+  /**
+   * 
+   * int lastIndexWhere(bool test(E element), [int? start]);
+   * 返回List中能被匹配的元素的最后一个元素的index。
+   * 
+   * 从List的[end]向前开始搜索，第一次匿名函数返回true则停止，且返回此时的index。
+   * 如果[start]没有指定，那么默认为数组的[list.length]开始.
+   * 
+   * 如果元素没有被找到，那么就返回-1。
+   * 
+   * 
+   * Returns the last index in the list that satisfies the provided [test].
+   *
+   * Searches the list from index [start] to 0.
+   * The first time an object `o` is encountered so that `test(o)` is true,
+   * the index of `o` is returned.
+   * If [start] is omitted, it defaults to the [length] of the list.
+   *
+   * ```
+   * List<String> notes = ['do', 're', 'mi', 're'];
+   * notes.lastIndexWhere((note) => note.startsWith('r'));       // 3
+   * notes.lastIndexWhere((note) => note.startsWith('r'), 2);    // 1
+   * ```
+   *
+   * Returns -1 if [element] is not found.
+   * ```
+   * notes.lastIndexWhere((note) => note.startsWith('k'));    // -1
+   * ```
+   */
+  int lastIndexWhere(bool test(E element), [int? start]);
+
+  /**
+   *  int lastIndexOf(E element, [int? start]);
+   * 
+   *  类似于indexOf,不过是从[list.length-1] - [0] 的搜索顺序。
+   *  如果元素匹配到了就结束，且返回该index。
+   *  如果没有匹配到，则返回-1。
+   * 
+   * 
+   * Returns the last index of [element] in this list.
+   *
+   * Searches the list backwards from index [start] to 0.
+   *
+   * The first time an object [:o:] is encountered so that [:o == element:],
+   * the index of [:o:] is returned.
+   *
+   *     List<String> notes = ['do', 're', 'mi', 're'];
+   *     notes.lastIndexOf('re', 2); // 1
+   *
+   * If [start] is not provided, this method searches from the end of the
+   * list.
+   *
+   *     notes.lastIndexOf('re');  // 3
+   *
+   * Returns -1 if [element] is not found.
+   *
+   *     notes.lastIndexOf('fa');  // -1
+   */
+  int lastIndexOf(E element, [int? start]);
+
+  /**
+   * void clear();
+   * 清空列表， list的length直接置为0;
+   * 如果是个固定长度的数组，那么不做处理，并且抛出 [UnsupportedError]错误。
+   *  
+   * 
+   * Removes all objects from this list;
+   * the length of the list becomes zero.
+   *
+   * Throws an [UnsupportedError], and retains all objects, if this
+   * is a fixed-length list.
+   */
+  void clear();
+
+  /**
+   * void insert(int index, E element);
+   * 
+   * 插入一个对象到指定的位置。
+   * 
+   * List长度增加1， 该List中原来的index位置以及之后的元素，都后移一个位置。
+   * List必须是可增长的。
+   * 这个[index]必须是非负数，且不能大于[length]。
+   * 
+   * 
+   * Inserts the object at position [index] in this list.
+   *
+   * This increases the length of the list by one and shifts all objects
+   * at or after the index towards the end of the list.
+   *
+   * The list must be growable.
+   * The [index] value must be non-negative and no greater than [length].
+   */
+  void insert(int index, E element);
+
+  /**
+   * void insertAll(int index, Iterable<E> iterable);
+   * 通过[Iterable]的数据源，批量插入到List的指定位置。
+   * 
+   * List增加[iterable]的数据源个数对应的长度。并且原来index位置的元素以及之后的元素，向
+   * List末尾移动指定长度的位置。
+   * 
+   * 这个List必须是可增长的。
+   * 这个[index]的值必须是非负数，且布恩那个大于List的[length]。
+   * 
+   * 
+   * Inserts all objects of [iterable] at position [index] in this list.
+   *
+   * This increases the length of the list by the length of [iterable] and
+   * shifts all later objects towards the end of the list.
+   *
+   * The list must be growable.
+   * The [index] value must be non-negative and no greater than [length].
+   */
+  void insertAll(int index, Iterable<E> iterable);
+
+  /**
+   * void setAll(int index, Iterable<E> iterable);
+   * 
+   * 使用iterable的数据源，覆盖List中的元素。从指定的List的[index]开始
+   *     List<String> list = ['a', 'b', 'c'];
+   *     list.setAll(1, ['bee', 'sea']);
+   *     list.join(', '); // 'a, bee, sea'
+   * 这个操作不会增加List的长度。
+   * 这个[index]必须是非负数，而且不能大于[length]。
+   * 这个[iterable]中元素的个数，不能大于list中[start, list.length]，否则抛异常。
+   * 
+   * 如果[iterable]是这个list本身的，那么在`setAll`期间，它的值可能发生改变。
+   * 
+   * 
+   * Overwrites objects of `this` with the objects of [iterable], starting
+   * at position [index] in this list.
+   *
+   *     List<String> list = ['a', 'b', 'c'];
+   *     list.setAll(1, ['bee', 'sea']);
+   *     list.join(', '); // 'a, bee, sea'
+   *
+   * This operation does not increase the length of `this`.
+   *
+   * The [index] must be non-negative and no greater than [length].
+   *
+   * The [iterable] must not have more elements than what can fit from [index]
+   * to [length].
+   *
+   * If `iterable` is based on this list, its values may change /during/ the
+   * `setAll` operation.
+   */
+  void setAll(int index, Iterable<E> iterable);
+
+  /**
+   *  bool remove(Object? value);
+   *  删除list中首次被 value 参数所匹配到的元素。
+   *  如果[value]在list中，那么返回true，否则返回false。
+   *     List<String> parts = ['head', 'shoulders', 'knees', 'toes'];
+   *     parts.remove('head'); // true
+   *     parts.join(', ');     // 'shoulders, knees, toes'
+   * 
+   *   如果[value]不再list中，则不会有删除效果，且返回false。
+   *   如果是固定长度的List，删除操作会报 [UnsupportedError] 错误。
+   * 
+   * 
+   * 
+   * Removes the first occurrence of [value] from this list.
+   *
+   * Returns true if [value] was in the list, false otherwise.
+   *
+   *     List<String> parts = ['head', 'shoulders', 'knees', 'toes'];
+   *     parts.remove('head'); // true
+   *     parts.join(', ');     // 'shoulders, knees, toes'
+   *
+   * The method has no effect if [value] was not in the list.
+   *
+   *     // Note: 'head' has already been removed.
+   *     parts.remove('head'); // false
+   *     parts.join(', ');     // 'shoulders, knees, toes'
+   *
+   * An [UnsupportedError] occurs if the list is fixed-length.
+   */
+
+  bool remove(Object? value);
+
+  /**
+   * E removeAt(int index);
+   *
+   * 根据一个索引从List中移除一个元素。
+   * 这个方法List的[length]将会减1，并且移动该index后面的元素前移。
+   * 返回一个被删除的元素。
+   * 
+   * 这个[index]必须在[0-length-1]之间。
+   * 如果是个固定长度的List，删除操作会报 [UnsupportedError] 的错误。这种情况下，数组是不可修改的。
+   * 
+   * 
+   * Removes the object at position [index] from this list.
+   *
+   * This method reduces the length of `this` by one and moves all later objects
+   * down by one position.
+   *
+   * Returns the removed object.
+   *
+   * The [index] must be in the range `0 ≤ index < length`.
+   *
+   * Throws an [UnsupportedError] if this is a fixed-length list. In that case
+   * the list is not modified.
+   */
+  E removeAt(int index);
+
+  /**
+   * E removeLast();
+   * 弹出List中的最后一个元素。
+   * 这个List必须不是空的，也不可以是固定长度的。
+   * 
+   * 
+   * Pops and returns the last object in this list.
+   *
+   * The list must not be empty.
+   *
+   * Throws an [UnsupportedError] if this is a fixed-length list.
+   */
+  E removeLast();
+
+  /**
+   * void removeWhere(bool test(E element));
+   * 移除所有匿名函数返回true时index对应的元素。（注意时所有被匹配的元素）
+   *     List<String> numbers = ['one', 'two', 'three', 'four'];
+   *     numbers.removeWhere((item) => item.length == 3);
+   *     numbers.join(', '); // 'three, four'
+   * 如果时固定长度，则抛出[UnsupportedError]
+   * 
+   * 
+   * Removes all objects from this list that satisfy [test].
+   *
+   * An object [:o:] satisfies [test] if [:test(o):] is true.
+   *
+   *     List<String> numbers = ['one', 'two', 'three', 'four'];
+   *     numbers.removeWhere((item) => item.length == 3);
+   *     numbers.join(', '); // 'three, four'
+   *
+   * Throws an [UnsupportedError] if this is a fixed-length list.
+   */
+  void removeWhere(bool test(E element));
+
+  /**
+   * void retainWhere(bool test(E element));
+   * 删除所有匿名函数返回false时index对应的元素。保留所有返回true的对象。
+   *     An object [:o:] satisfies [test] if [:test(o):] is true.
+   * 
+   *     List<String> numbers = ['one', 'two', 'three', 'four'];
+   *     numbers.retainWhere((item) => item.length == 3);
+   *     numbers.join(', '); // 'one, two'
+   * 如果时固定长度的List，将会抛出异常[UnsupportedError]
+   * 
+   * 
+   * Removes all objects from this list that fail to satisfy [test].
+   *
+   * An object [:o:] satisfies [test] if [:test(o):] is true.
+   *
+   *     List<String> numbers = ['one', 'two', 'three', 'four'];
+   *     numbers.retainWhere((item) => item.length == 3);
+   *     numbers.join(', '); // 'one, two'
+   *
+   * Throws an [UnsupportedError] if this is a fixed-length list.
+   */
+
+  void retainWhere(bool test(E element));
+
+  /**
+   * List<E> operator +(List<E> other);
+   * `操作就是： var list = list1 + list2 `
+   *  
+   * 返回这个List与另一个List的联合List，[other]中的元素以追加形式排在末尾。
+   * Returns the concatenation of this list and [other].
+   * 默认的行为是返回一个普通的可增长的List。一些List类型可以选择返回如他们自身一样类型的List。 
+   *    
+   * 
+   * Returns a new list containing the elements of this list followed by
+   * the elements of [other].
+   *
+   * The default behavior is to return a normal growable list.
+   * Some list types may choose to return a list of the same type as themselves
+   * (see [Uint8List.+]);
+   */
+  List<E> operator +(List<E> other);
+
+  /**
+   * List<E> sublist(int start, [int? end]);
+   * 返回List的子subList，子subList的元素是从这个List的[start-end]复制元素，且元素顺序跟原来的List中元素顺序一致、  
+   * ```dart
+   *    var colors = ["red", "green", "blue", "orange", "pink"];
+   *    print(colors.sublist(1, 3)); // [green, blue]
+   * ```
+   * 如果[end]被遗漏，那么它默认是这个List的[length]
+   * [start],[end]必须在List的[0-length]范围内。
+   * 如果[start] = [end],将会返回一个空数组。
+   * 
+   * 
+   * Returns a new list containing the elements between [start] and [end].
+   *
+   * The new list is a `List<E>` containing the elements of this list at
+   * positions greater than or equal to [start] and less than [end] in the same
+   * order as they occur in this list.
+   *
+   * ```dart
+   * var colors = ["red", "green", "blue", "orange", "pink"];
+   * print(colors.sublist(1, 3)); // [green, blue]
+   * ```
+   *
+   * If [end] is omitted, it defaults to the [length] of this list.
+   *
+   * ```dart
+   * print(colors.sublist(1)); // [green, blue, orange, pink]
+   * ```
+   *
+   * The `start` and `end` positions must satisfy the relations
+   * 0 ≤ `start` ≤ `end` ≤ `this.length`
+   * If `end` is equal to `start`, then the returned list is empty.
+   */
+  List<E> sublist(int start, [int? end]);
+
+  /**
+   * Iterable<E> getRange(int start, int end);
+   *   
+   * 返回一个[Iterable]对象，是List的[start, end]的一个子集。
+   * 
+   * 提供一个[start - end]的返回，在这次调用中必须是有效的(0<=start<=end<=length)。
+   * 这个Range包含[start], 不包含[end].当然，如果[start]=[end]也是有效的，返回一个空的Iterable对象。
+   * 
+   * 返回的Iterable对象，行为像`skip(start).take(end - start)`.
+   * 就是说，如果改变List的lengh，并不会因为这个Iterable而报错。
+   * 
+   * Returns an [Iterable] that iterates over the objects in the range
+   * [start] inclusive to [end] exclusive.
+   *
+   * The provided range, given by [start] and [end], must be valid at the time
+   * of the call.
+   *
+   * A range from [start] to [end] is valid if `0 <= start <= end <= len`, where
+   * `len` is this list's `length`. The range starts at `start` and has length
+   * `end - start`. An empty range (with `end == start`) is valid.
+   *
+   * The returned [Iterable] behaves like `skip(start).take(end - start)`.
+   * That is, it does *not* throw if this list changes size.
+   *
+   *     List<String> colors = ['red', 'green', 'blue', 'orange', 'pink'];
+   *     Iterable<String> range = colors.getRange(1, 4);
+   *     range.join(', ');  // 'green, blue, orange'
+   *     colors.length = 3;
+   *     range.join(', ');  // 'green, blue'
+   */
+  Iterable<E> getRange(int start, int end);
+
+  /**
+   * void setRange(int start, int end, Iterable<E> iterable, [int skipCount = 0]);
+   * 
+   * 复制Iterable的对象，跳过Iterable的[0-skipCount]位置的元素，批量复制数据元素到List中的[start, end]中、
+   * 
+   * 这个被提供的range，通过[start, end]指定，且[start, end]必须是有效的,即[0<=start<=end<=list.length]。
+   * 当然，如果[end==start]时，有效且返回一个空数据的Iterable对象。
+   * 
+   * [iterable]对象在跳过[0-skipCount]返回的元素之后，必须要有足够的对象来填充List[start-end]范围。
+   * 
+   * 如果 Iterable就是这个List， 即使两个ranges重叠，[setRange]操作[skipCount, skipCount+(end-start)] 的原始的元素会
+   * 复制到[start, end]中。
+   * 
+   * 如果[iterable]在某些其它的方式上依赖这个List， 不保证可行。
+   * 
+   * 
+   * Copies the objects of [iterable], skipping [skipCount] objects first,
+   * into the range [start], inclusive, to [end], exclusive, of the list.
+   *
+   *     List<int> list1 = [1, 2, 3, 4];
+   *     List<int> list2 = [5, 6, 7, 8, 9];
+   *     // Copies the 4th and 5th items in list2 as the 2nd and 3rd items
+   *     // of list1.
+   *     list1.setRange(1, 3, list2, 3);
+   *     list1.join(', '); // '1, 8, 9, 4'
+   *
+   * The provided range, given by [start] and [end], must be valid.
+   * A range from [start] to [end] is valid if `0 <= start <= end <= len`, where
+   * `len` is this list's `length`. The range starts at `start` and has length
+   * `end - start`. An empty range (with `end == start`) is valid.
+   *
+   * The [iterable] must have enough objects to fill the range from `start`
+   * to `end` after skipping [skipCount] objects.
+   *
+   * If `iterable` is this list, the operation copies the elements
+   * originally in the range from `skipCount` to `skipCount + (end - start)` to
+   * the range `start` to `end`, even if the two ranges overlap.
+   *
+   * If `iterable` depends on this list in some other way, no guarantees are
+   * made.
+   */
+  void setRange(int start, int end, Iterable<E> iterable, [int skipCount = 0]);
+
+  /**
+   *   void removeRange(int start, int end);
+   *  删除一个指定范围[start, end]内的所有元素。
+   *  提供的[start], [end]必须在[0-length]范围内。
+   * 
+   * 
+   * Removes the objects in the range [start] inclusive to [end] exclusive.
+   *
+   * The provided range, given by [start] and [end], must be valid.
+   * A range from [start] to [end] is valid if `0 <= start <= end <= len`, where
+   * `len` is this list's `length`. The range starts at `start` and has length
+   * `end - start`. An empty range (with `end == start`) is valid.
+   *
+   * Throws an [UnsupportedError] if this is a fixed-length list. In that case
+   * the list is not modified.
+   */
+  void removeRange(int start, int end);
+
+  /**
+   * void fillRange(int start, int end, [E? fillValue]);
+   * 
+   * 对List中的指定返回[start, end]使用指定元素进行填充。
+   * 提供的[start], [end]必须在[0-length]范围内。
+   * 
+   * 如果元素的类型不能赋值null，忽略[fillValue]或者输入null, 那么将会执行失败。
+   * 
+   * 
+   * Sets the objects in the range [start] inclusive to [end] exclusive
+   * to the given [fillValue].
+   *
+   * The provided range, given by [start] and [end], must be valid.
+   * A range from [start] to [end] is valid if `0 <= start <= end <= len`, where
+   * `len` is this list's `length`. The range starts at `start` and has length
+   * `end - start`. An empty range (with `end == start`) is valid.
+   *
+   * Example:
+   * ```dart
+   *  List<int> list = new List(3);
+   *     list.fillRange(0, 2, 1);
+   *     print(list); //  [1, 1, null]
+   * ```
+   *
+   * If the element type is not nullable, omitting [fillValue] or passing `null`
+   * as [fillValue] will make the `fillRange` fail.
+   */
+  void fillRange(int start, int end, [E? fillValue]);
+
+  /**
+   * void replaceRange(int start, int end, Iterable<E> replacement);
+   *  
+   * 删除List[start, end]范围内的所有元素，然后将Iterable中的所有元素插入。
+   * 
+   * 这个方法不能工作在固定长度的List上，即使是相同元素的个数被替换。如果有那种情形，
+   * 建议使用[setRange]。
+   * 
+   * 
+   * Removes the objects in the range [start] inclusive to [end] exclusive
+   * and inserts the contents of [replacement] in its place.
+   *
+   *     List<int> list = [1, 2, 3, 4, 5];
+   *     list.replaceRange(1, 4, [6, 7]);
+   *     list.join(', '); // '1, 6, 7, 5'
+   *
+   * The provided range, given by [start] and [end], must be valid.
+   * A range from [start] to [end] is valid if `0 <= start <= end <= len`, where
+   * `len` is this list's `length`. The range starts at `start` and has length
+   * `end - start`. An empty range (with `end == start`) is valid.
+   *
+   * This method does not work on fixed-length lists, even when [replacement]
+   * has the same number of elements as the replaced range. In that case use
+   * [setRange] instead.
+   */
+  void replaceRange(int start, int end, Iterable<E> replacement);
+
+  /**
+   * Map<int, E> asMap();
+   * 
+   * 返回一个不可修改的[Map].
+   * 
+   * 这个map使用List的索引作为Key和对应的元素作为value。
+   * `使用Map.keys`获取到的[Iterable]对象通过数字顺序迭代这个列表的索引集合。
+   * 
+   * Returns an unmodifiable [Map] view of `this`.
+   *
+   * The map uses the indices of this list as keys and the corresponding objects
+   * as values. The `Map.keys` [Iterable] iterates the indices of this list
+   * in numerical order.
+   *
+   *     List<String> words = ['fee', 'fi', 'fo', 'fum'];
+   *     Map<int, String> map = words.asMap();
+   *     map[0] + map[1];   // 'feefi';
+   *     map.keys.toList(); // [0, 1, 2, 3]
+   */
+  Map<int, E> asMap();
+
+  /**
+   * bool operator ==(Object other);
+   * 
+   * 判断一个List是否与另外一个List相等。 
+   * 默认情况下， List是等于它们自身的。
+   * 即使[other]也是一个List，相等性比较也不是比较两个List的元素。
+   * 
+  * Whether this list is equal to [other].
+  *
+  * Lists are, by default, only equal to themselves.
+  * Even if [other] is also a list, the equality comparison
+  * does not compare the elements of the two lists.
+  */
+  bool operator ==(Object other);
+}
 
 ```
 
