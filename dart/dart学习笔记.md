@@ -910,6 +910,8 @@ part of dart.core;
  */
 abstract class List<E> implements EfficientLengthIterable<E> {
   /**
+    external factory List([int? length]);
+  
    * 根据给予的长度创建一个List.
    * Creates a list of the given length.
    *
@@ -969,7 +971,11 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   external factory List([int? length]);
 
+    
+    
   /**
+  	  external factory List.filled(int length, E fill, {bool growable = false});
+  
    * 根据传入的length创建一个List，并且使用[fill]填充每一个位置。
    * Creates a list of the given length with [fill] at each position.
    *
@@ -1013,6 +1019,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   external factory List.filled(int length, E fill, {bool growable = false});
 
+    
+    
   /**
    *  List.empty({bool growable = false});
    * 
@@ -1028,6 +1036,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
   @Since("2.8")
   external factory List.empty({bool growable = false});
 
+    
+    
   /**
    * List.from(Iterable elements, {bool growable = true});
    * 
@@ -1053,6 +1063,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   external factory List.from(Iterable elements, {bool growable = true});
 
+    
+    
   /**
    * List.of(Iterable<E> elements, {bool growable = true});
    * 
@@ -1070,6 +1082,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   external factory List.of(Iterable<E> elements, {bool growable = true});
 
+    
+    
   /**
    * List.generate(int length, E generator(int index),
       {bool growable = true});
@@ -1093,6 +1107,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
   external factory List.generate(int length, E generator(int index),
       {bool growable = true});
 
+    
+    
   /**
    * List.unmodifiable(Iterable elements);
    * 
@@ -1112,6 +1128,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   external factory List.unmodifiable(Iterable elements);
 
+    
+    
   /**
    * static List<T> castFrom<S, T>(List<S> source) => CastList<S, T>(source);
    * 适配数据源[source] 成为一个 `List<T>`
@@ -1137,9 +1155,10 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    * of [S],
    * then the returned list can be used as a `List<T>`.
    */
-
   static List<T> castFrom<S, T>(List<S> source) => CastList<S, T>(source);
 
+    
+    
   /**
    * static void copyRange<T>(List<T> target, int at, List<T> source,
    *   [int? start, int? end]) 
@@ -1195,6 +1214,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
       }
     }
   }
+    
+    
 
   /**
    * static void writeIterable<T>(List<T> target, int at, Iterable<T> source)
@@ -1234,6 +1255,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
     }
   }
 
+    
+    
   /**
    * List<R> cast<R>();
    * 返回这个List的视图，作为一个所有元素是[R]类型的实例的List。 
@@ -1264,6 +1287,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   List<R> cast<R>();
 
+    
+    
   /**
    * E operator [](int index);
    * 返回List中指定index的元素。
@@ -1273,6 +1298,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    * or throws a [RangeError] if [index] is out of bounds.
    */
   E operator [](int index);
+    
+    
 
   /**
    * void operator []=(int index, E value);
@@ -1285,6 +1312,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    * or throws a [RangeError] if [index] is out of bounds.
    */
   void operator []=(int index, E value);
+    
+    
 
   /**
    * void set first(E value);
@@ -1300,6 +1329,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    * The list must be non-empty.
    */
   void set first(E value);
+    
+    
 
   /**
    * void set last(E value);
@@ -1316,6 +1347,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   void set last(E value);
 
+    
+    
   /**
    * int get length;
    * 获取这个List中元素的数量。
@@ -1327,6 +1360,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    * The valid indices for a list are `0` through `length - 1`.
    */
   int get length;
+    
+    
 
   /**
    * set length(int newLength);
@@ -1351,6 +1386,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   set length(int newLength);
 
+    
+    
   /**
    * void add(E value);
    * 增加一个元素到List的末尾。
@@ -1366,6 +1403,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   void add(E value);
 
+    
+    
   /**
    * void addAll(Iterable<E> iterable);
    * 将一个可迭代的对象的数据源，追加到这个List的末尾。
@@ -1381,6 +1420,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   void addAll(Iterable<E> iterable);
 
+    
+    
   /**
    * Iterable<E> get reversed;
    * 返回一个可迭代的对象；数据源是这个List的反向顺序的所有元素。
@@ -1389,6 +1430,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   Iterable<E> get reversed;
 
+    
+    
   /**
    * void sort([int compare(E a, E b)?]);
    * 通过[compare]函数指定顺序，来排序这个List。
@@ -1429,6 +1472,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   void sort([int compare(E a, E b)?]);
 
+    
+    
   /**
    *  void shuffle([Random? random]);
    *  随机打乱List的元素位置。（ 直接对该List生效。） 
@@ -1437,6 +1482,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   void shuffle([Random? random]);
 
+    
+    
   /**
    *  int indexOf(E element, [int start = 0]);
    *  
@@ -1464,6 +1511,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   int indexOf(E element, [int start = 0]);
 
+    
+    
   /**
    * int indexWhere(bool test(E element), [int start = 0]);
    * 返回找到的第一个匹配到的元素的index。
@@ -1491,6 +1540,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   int indexWhere(bool test(E element), [int start = 0]);
 
+    
+    
   /**
    * 
    * int lastIndexWhere(bool test(E element), [int? start]);
@@ -1522,6 +1573,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   int lastIndexWhere(bool test(E element), [int? start]);
 
+    
+    
   /**
    *  int lastIndexOf(E element, [int? start]);
    * 
@@ -1551,6 +1604,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   int lastIndexOf(E element, [int? start]);
 
+    
+    
   /**
    * void clear();
    * 清空列表， list的length直接置为0;
@@ -1565,6 +1620,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   void clear();
 
+    
+    
   /**
    * void insert(int index, E element);
    * 
@@ -1585,6 +1642,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   void insert(int index, E element);
 
+    
+    
   /**
    * void insertAll(int index, Iterable<E> iterable);
    * 通过[Iterable]的数据源，批量插入到List的指定位置。
@@ -1606,6 +1665,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   void insertAll(int index, Iterable<E> iterable);
 
+    
+    
   /**
    * void setAll(int index, Iterable<E> iterable);
    * 
@@ -1639,6 +1700,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   void setAll(int index, Iterable<E> iterable);
 
+    
+    
   /**
    *  bool remove(Object? value);
    *  删除list中首次被 value 参数所匹配到的元素。
@@ -1671,6 +1734,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
 
   bool remove(Object? value);
 
+    
+    
   /**
    * E removeAt(int index);
    *
@@ -1696,6 +1761,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   E removeAt(int index);
 
+    
+    
   /**
    * E removeLast();
    * 弹出List中的最后一个元素。
@@ -1710,6 +1777,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   E removeLast();
 
+    
+    
   /**
    * void removeWhere(bool test(E element));
    * 移除所有匿名函数返回true时index对应的元素。（注意时所有被匹配的元素）
@@ -1731,6 +1800,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   void removeWhere(bool test(E element));
 
+    
+    
   /**
    * void retainWhere(bool test(E element));
    * 删除所有匿名函数返回false时index对应的元素。保留所有返回true的对象。
@@ -1753,6 +1824,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    * Throws an [UnsupportedError] if this is a fixed-length list.
    */
 
+    
+    
   void retainWhere(bool test(E element));
 
   /**
@@ -1773,6 +1846,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   List<E> operator +(List<E> other);
 
+    
+    
   /**
    * List<E> sublist(int start, [int? end]);
    * 返回List的子subList，子subList的元素是从这个List的[start-end]复制元素，且元素顺序跟原来的List中元素顺序一致、  
@@ -1808,6 +1883,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   List<E> sublist(int start, [int? end]);
 
+    
+    
   /**
    * Iterable<E> getRange(int start, int end);
    *   
@@ -1840,6 +1917,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   Iterable<E> getRange(int start, int end);
 
+    
+    
   /**
    * void setRange(int start, int end, Iterable<E> iterable, [int skipCount = 0]);
    * 
@@ -1883,6 +1962,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   void setRange(int start, int end, Iterable<E> iterable, [int skipCount = 0]);
 
+    
+    
   /**
    *   void removeRange(int start, int end);
    *  删除一个指定范围[start, end]内的所有元素。
@@ -1901,6 +1982,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   void removeRange(int start, int end);
 
+    
+    
   /**
    * void fillRange(int start, int end, [E? fillValue]);
    * 
@@ -1930,6 +2013,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   void fillRange(int start, int end, [E? fillValue]);
 
+    
+    
   /**
    * void replaceRange(int start, int end, Iterable<E> replacement);
    *  
@@ -1957,6 +2042,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   void replaceRange(int start, int end, Iterable<E> replacement);
 
+    
+    
   /**
    * Map<int, E> asMap();
    * 
@@ -1978,6 +2065,8 @@ abstract class List<E> implements EfficientLengthIterable<E> {
    */
   Map<int, E> asMap();
 
+    
+    
   /**
    * bool operator ==(Object other);
    * 
@@ -1998,85 +2087,1168 @@ abstract class List<E> implements EfficientLengthIterable<E> {
 
 
 
+## Set
+
+### Set dart Api 文件翻译
+
+```dart
+/**
+ * 每一个对象只能出现一次的对象集合。
+ * A collection of objects in which each object can occur only once.
+ *
+ * 那就是说， 对于每一个元素类型的对象， 这个对象或被考虑放到set中，或者不放到set中。
+ * That is, for each object of the element type, the object is either considered
+ * to be in the set, or to _not_ be in the set.
+ *
+ * Set实现可能考虑一些难以区分的元素。在set中，这些元素被当做任何操作都是相同的处理过。
+ * Set implementations may consider some elements indistinguishable. These
+ * elements are treated as being the same for any operation on the set.
+ *
+ * 默认的Set实现是[linkedHashSet]，如果元素对象使用--操作是相等的，就认为对象是难以区分的。
+ * The default [Set] implementation, [LinkedHashSet], considers objects
+ * indistinguishable if they are equal with regard to
+ * operator [Object.==].
+ *
+ * 迭代一个set中的元素，在某些方式上可能是无序或者有序的。比如：
+ * Iterating over elements of a set may be either unordered
+ * or ordered in some way. Examples:
+ *
+ * [HashSet]是无序的， 以为这它的迭代顺序是没有指定的。、
+ * [LinkedHashSet]通过元素的插入顺序进行迭代。一个排序的Set，像[splayTreeSet]根据
+ * 排序顺序进行迭代。
+ * * A [HashSet] is unordered, which means that its iteration order is
+ *   unspecified,
+ * * [LinkedHashSet] iterates in the insertion order of its elements, and
+ * * a sorted set like [SplayTreeSet] iterates the elements in sorted order.
+ *
+ * 当一个在集合中的操作正在执行时（比如调用[forEach]或者[containsAll]方法），通常是不允许修改
+ * 集合的（增加或者删除元素）。当迭代这个Set自身，或者任何由这个Set返回的[Iterable]对象，都不允许去
+ * 修改Set（增加或者删除元素），比如通过像[where], [map]等方法返回的[Iterable]对象
+ * It is generally not allowed to modify the set (add or remove elements) while
+ * an operation on the set is being performed, for example during a call to
+ * [forEach] or [containsAll]. Nor is it allowed to modify the set while
+ * iterating either the set itself or any [Iterable] that is backed by the set,
+ * such as the ones returned by methods like [where] and [map].
+ *
+ * 
+ * Set中的元素，通常是不允许去修改元素的相等性，比如它们的hashcode。一些专门的子类可能更随意些，
+ * 这种情形应该用文档标识这种行为。
+ * It is generally not allowed to modify the equality of elements (and thus not
+ * their hashcode) while they are in the set. Some specialized subtypes may be
+ * more permissive, in which case they should document this behavior.
+ */
+abstract class Set<E> extends EfficientLengthIterable<E> {
+  /**
+   * factory Set() = LinkedHashSet<E>;
+   * 
+   * 创建一个空的[Set].
+   * 被创建的[Set]是一个简单的[LinkedHashSet].
+   * 列如：它认为元素通过==是难以区分的，需要让它们有一个兼容的[Object.hashCode]实现。
+   * 
+   * 这个Set的相同
+   * 
+   * Creates an empty [Set].
+   *
+   * The created [Set] is a plain [LinkedHashSet].
+   * As such, it considers elements that are equal (using [operator ==]) to be
+   * indistinguishable, and requires them to have a compatible
+   * [Object.hashCode] implementation.
+   *
+   * 集合相等判断由 `LinkedHashSet`提供。
+   * The set is equivalent to one created by `new LinkedHashSet<E>()`.
+   */
+  factory Set() = LinkedHashSet<E>;
+
+  /**
+   * factory Set.identity() = LinkedHashSet<E>.identity;
+   * 
+   * 创建一个空的带有身份的[Set]
+   * 创建的集合[Set]是一个使用id作为相等关系的[LinkedHashSet]
+   * 这个[Set]的相等性判断由`new LinkedHashSet<E>.identity()`提供。
+   * 
+   * Creates an empty identity [Set].
+   *
+   * The created [Set] is a [LinkedHashSet] that uses identity as equality
+   * relation.
+   *
+   * The set is equivalent to one created by `new LinkedHashSet<E>.identity()`.
+   */
+  factory Set.identity() = LinkedHashSet<E>.identity;
+
+  /**
+   * factory Set.from(Iterable elements) = LinkedHashSet<E>.from;
+   * 
+   * 创建一个包含[Iterable]数据源的[Set]。
+   * Creates a [Set] that contains all [elements].
+   *
+   * 所有的元素必须是[E]类型的实例。
+   * 这个迭代自身的Iterable,能够拥有任何元素类型。所以这个构造器常常降级为一个Set。
+   * 比如如下：
+   *     Set<SuperType> superSet = ...;
+   *     Set<SubType> subSet =
+   *         new Set<SubType>.from(superSet.where((e) => e is SubType));
+   * 这个被创造的[Set]是一个[LinkedHashSet]. 比如，它认为元素的相等判断使用==是难以区分的，
+   * 需要它们有一个合适的[Object.hashCode]实现。
+   * 这个集合的相等性判断由`new LinkedHashSet<E>.from(elements)`提供。
+   * 
+   * 
+   * All the [elements] should be instances of [E].
+   * The `elements` iterable itself can have any type,
+   * so this constructor can be used to down-cast a `Set`, for example as:
+   *
+   *     Set<SuperType> superSet = ...;
+   *     Set<SubType> subSet =
+   *         new Set<SubType>.from(superSet.where((e) => e is SubType));
+   *
+   * The created [Set] is a [LinkedHashSet]. As such, it considers elements that
+   * are equal (using [operator ==]) to be indistinguishable, and requires them to
+   * have a compatible [Object.hashCode] implementation.
+   *
+   * The set is equivalent to one created by
+   * `new LinkedHashSet<E>.from(elements)`.
+   */
+  factory Set.from(Iterable elements) = LinkedHashSet<E>.from;
+
+  /**
+   * factory Set.of(Iterable<E> elements) = LinkedHashSet<E>.of;
+   * 
+   * 根据一个Iterable的数据源创建一个[Set].
+   * 被创建的[Set]是一个[LinkedHashSet]对象。
+   * 
+   * 这个被创造的[Set]是一个[LinkedHashSet]. 比如，它认为元素的相等判断使用==是难以区分的，
+   * 需要它们有一个合适的[Object.hashCode]实现。
+   * 这个集合的相等性判断由`new LinkedHashSet<E>.of(elements)`提供。
+   * 
+   * 
+   * 
+   * Creates a [Set] from [elements].
+   *
+   * The created [Set] is a [LinkedHashSet]. As such, it considers elements that
+   * are equal (using [operator ==]) to be indistinguishable, and requires them to
+   * have a compatible [Object.hashCode] implementation.
+   *
+   * The set is equivalent to one created by
+   * `new LinkedHashSet<E>.of(elements)`.
+   */
+  factory Set.of(Iterable<E> elements) = LinkedHashSet<E>.of;
+
+  /**
+   * static Set<T> castFrom<S, T>(Set<S> source, {Set<R> Function<R>()? newSet}) =>
+      CastSet<S, T>(source, newSet);
+   * 
+   * 适配source的数据源，转成一个 [Set<T>]
+   * Adapts [source] to be a `Set<T>`.
+   * 
+   * 
+   *如果新的集合被提供，它常被用于创造一个新的sets，并当做[toSet],[union]返回, 也被用于
+   * 交集和差集。如果[newSet]被忽略，它默认会使用默认的[Set]构造器来创建一个set，且交集和差集返回一个在source对象
+   * 上调用同样方法的适配的版本。
+
+   * If [newSet] is provided, it is used to create the new sets returned
+   * by [toSet], [union], and is also used for [intersection] and [difference].
+   * If [newSet] is omitted, it defaults to creating a new set using the
+   * default [Set] constructor, and [intersection] and [difference]
+   * returns an adapted version of calling the same method on the source.
+   *
+   * 任何时候，Set将生成一个元素不是[T]类型的元素，这个元素访问时将会抛出错误.
+   * Any time the set would produce an element that is not a [T],
+   * the element access will throw.
+   *
+   * 任何时候一个[T]类型的值尝试增加到一个适配的Set，除非这个value也是[S]类型的实例，
+   * 否则存储时会抛出异常。
+   * Any time a [T] value is attempted added into the adapted set,
+   * the store will throw unless the value is also an instance of [S].
+   *
+   * 如果所有被访问的source中的元素，实际上是[T]类型的元素， 并且如果所有添加到要返回的SEt的元素
+   * 实际上都是[S]类型的实例，那么返回的set通常是`Set<T>`.
+   * If all accessed elements of [source] are actually instances of [T],
+   * and if all elements added to the returned set are actually instance
+   * of [S],
+   * then the returned set can be used as a `Set<T>`.
+   */
+  static Set<T> castFrom<S, T>(Set<S> source, {Set<R> Function<R>()? newSet}) =>
+      CastSet<S, T>(source, newSet);
+
+  /**
+   * Set<R> cast<R>();
+   * 提供一个sSet的视图，作为一个[R]类型的元素的Set集合。
+   * 
+   * 如果这个Set仅仅包含[R]类型的实例，所有读操作将会工作正常。如果其他操作尝试起访问一个不是
+   * [R]类型实例的元素，访问将会抛出异常。
+   * 
+   * 元素通过add()，addAll()等方法添加到集合Set中，必须是一个[R]类型的实例的有效参数传入到addh函数中，
+   * 并且，必须是[E]类型的实例，以及能被这个Set所能接受。
+   * 
+   * Provides a view of this set as a set of [R] instances.
+   *
+   * If this set contains only instances of [R], all read operations
+   * will work correctly. If any operation tries to access an element
+   * that is not an instance of [R], the access will throw instead.
+   *
+   * Elements added to the set (e.g., by using [add] or [addAll])
+   * must be instance of [R] to be valid arguments to the adding function,
+   * and they must be instances of [E] as well to be accepted by
+   * this set as well.
+   */
+  Set<R> cast<R>();
+
+  /**
+   * Iterator<E> get iterator;
+   * 提供一个迭代器，用于迭代set集合中的元素。
+   * 
+   * 迭代器的顺序被个别的[Set]实现所定义，但是在集合的更改上保持一致。
+   * 
+   * Provides an iterator that iterates over the elements of this set.
+   *
+   * The order of iteration is defined by the individual `Set` implementation,
+   * but must be consistent between changes to the set.
+   */
+  Iterator<E> get iterator;
+
+  /**
+   * bool contains(Object? value);
+   * 如果value在这个集合中则返回true， 否则返回false；
+   * 
+   * Returns true if [value] is in the set.
+   */
+  bool contains(Object? value);
+
+  /**
+   * bool add(E value);
+   * 增加元素到set中。
+   * 如果这个value还不在这个set中，则返回true，否则返回false，且集合不做任何改变。
+   * 
+   * Adds [value] to the set.
+   *
+   * Returns `true` if [value] (or an equal value) was not yet in the set.
+   * Otherwise returns `false` and the set is not changed.
+   *
+   * Example:
+   *
+   *     var set = new Set();
+   *     var time1 = new DateTime.fromMillisecondsSinceEpoch(0);
+   *     var time2 = new DateTime.fromMillisecondsSinceEpoch(0);
+   *     // time1 and time2 are equal, but not identical.
+   *     Expect.isTrue(time1 == time2);
+   *     Expect.isFalse(identical(time1, time2));
+   *     set.add(time1);  // => true.
+   *     // A value equal to time2 exists already in the set, and the call to
+   *     // add doesn't change the set.
+   *     set.add(time2);  // => false.
+   *     Expect.isTrue(set.length == 1);
+   *     Expect.isTrue(identical(time1, set.first));
+   */
+  bool add(E value);
+
+  /**
+   * void addAll(Iterable<E> elements);
+   * 增加Iterable中数据源的所有元素到这个集合中。
+   * 
+   * 等价于将每一个元素使用add()方法添加，但是有的集合可能会优化它。
+   * 
+   * 
+   * Adds all [elements] to this Set.
+   *
+   * Equivalent to adding each element in [elements] using [add],
+   * but some collections may be able to optimize it.
+   */
+  void addAll(Iterable<E> elements);
+
+  /**
+   * bool remove(Object? value);
+   * 删除集合中的value值。
+   * 如果value存在于集合中，那么删除并且返回true。否则返回false，且集合不做删除。
+   * 
+   * 
+   * Removes [value] from the set. Returns true if [value] was
+   * in the set. Returns false otherwise. The method has no effect
+   * if [value] value was not in the set.
+   */
+  bool remove(Object? value);
+
+  /**
+   * E? lookup(Object? object);
+   * 如果一个对象在集合中，那么返回它。
+   * 检查一个对下你给是否在set中，像[contains]方法，如果是的话，则返回集合中的object对象，
+   * 否则返回null。
+   * 
+   * 如果被set使用的等价关系，没有id， 那么这个返回的对象是无`identical`的对象，
+   * 一些集合实现可能不会去实现这个方法。
+   * 如果[contains]方法是计算的，而不是基于一个实际的对象实例，那么不会有专门表现这个set元素的实例对象
+   * 
+   * If an object equal to [object] is in the set, return it.
+   *
+   * Checks whether [object] is in the set, like [contains], and if so,
+   * returns the object in the set, otherwise returns `null`.
+   *
+   * If the equality relation used by the set is not identity,
+   * then the returned object may not be *identical* to [object].
+   * Some set implementations may not be able to implement this method.
+   * If the [contains] method is computed,
+   * rather than being based on an actual object instance,
+   * then there may not be a specific object instance representing the
+   * set element.
+   */
+  E? lookup(Object? object);
+
+  /**
+   * void removeAll(Iterable<Object?> elements);
+   * 移除Set中Iterable中含有的元素。
+   * 
+   * Removes each element of [elements] from this set.
+   */
+  void removeAll(Iterable<Object?> elements);
+
+  /**
+   * void retainAll(Iterable<Object?> elements);
+   * 移除Set中，且Iterable数据源中没有的元素。
+   * 
+   * 检查Iterable中的每一个元素，是否有元素与存在于集合的元素相等(通过contains方法判断)，
+   * 如果这样的话，在集合中相等的元素将会被保留， 不等于Iterable中任何元素的List中的元素将会
+   * 被移除。
+   * 
+   * 
+   * Removes all elements of this set that are not elements in [elements].
+   *
+   * Checks for each element of [elements] whether there is an element in this
+   * set that is equal to it (according to `this.contains`), and if so, the
+   * equal element in this set is retained, and elements that are not equal
+   * to any element in `elements` are removed.
+   */
+  void retainAll(Iterable<Object?> elements);
+
+  /**
+   * void removeWhere(bool test(E element));
+   * 移除满足[test]方法的所有在Set集合中的元素。
+   * 
+   * Removes all elements of this set that satisfy [test].
+   */
+  void removeWhere(bool test(E element));
+
+  /**
+   * void retainWhere(bool test(E element));
+  * 移除不满足[test]方法的所有在Set集合中的元素。
+   * 
+   * Removes all elements of this set that fail to satisfy [test].
+   */
+  void retainWhere(bool test(E element));
+
+  /**
+   * bool containsAll(Iterable<Object?> other);
+   * 判断Set是否含有Iterable数据源中所有的元素，如果全部包含，则返回true，否则返回false。
+   * 
+   * Returns whether this Set contains all the elements of [other].
+   */
+  bool containsAll(Iterable<Object?> other);
+
+  /**
+   * Set<E> intersection(Set<Object?> other);
+   * 返回一个Set本身，与其它Set的交集。
+   * 那就是说，这个返回的 Set 包含的所有元素既在 这个Set对象中，也在other set对象中。
+   * 简而言之，就是取交集。
+   * 
+   * 
+   * Returns a new set which is the intersection between this set and [other].
+   *
+   * That is, the returned set contains all the elements of this [Set] that
+   * are also elements of [other] according to `other.contains`.
+   */
+  Set<E> intersection(Set<Object?> other);
+
+  /**
+   * Set<E> union(Set<E> other);
+   * 取并集，返回一个新的集合，这个集合包含 set本身，以及other set的所有元素。
+   * 那就是说，返回的set 包含了 两个set的所有元素。
+   * 
+   * Returns a new set which contains all the elements of this set and [other].
+   *
+   * That is, the returned set contains all the elements of this [Set] and
+   * all the elements of [other].
+   */
+  Set<E> union(Set<E> other);
+
+  /**
+   * Set<E> difference(Set<Object?> other);
+   * 
+   * 取差集， 返回一个新的集合，这个集合的元素在 set本身中存在，但是都不在other set中存在。
+   * 
+   * Returns a new set with the elements of this that are not in [other].
+   *
+   * That is, the returned set contains all the elements of this [Set] that
+   * are not elements of [other] according to `other.contains`.
+   */
+  Set<E> difference(Set<Object?> other);
+
+  /**
+   * void clear();
+   * 清除集合中所有的元素。
+   * 
+   * Removes all elements in the set.
+   */
+  void clear();
+
+  /* 
+    Set<E> toSet();
+    用相同的元素创建一个set对象，行为像这个set本身。
+    关于增加和删除元素的行为是相同的，它初始化包含相同的元素。
+    如果它指定了一个元素的顺序，返回的set中元素也是同样的顺序。
+
+    Creates a [Set] with the same elements and behavior as this `Set`.
+   *
+   * The returned set behaves the same as this set
+   * with regard to adding and removing elements.
+   * It initially contains the same elements.
+   * If this set specifies an ordering of the elements,
+   * the returned set will have the same order.
+   */
+  Set<E> toSet();
+}
+```
+
+
+
+## Map
+
+## Map dart api 文件翻译
+
+```dart
+// Copyright (c) 2011, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+part of dart.core;
+
+/**
+ * 一个含有key-value对的集合， 使用它相关联的key取回value。
+ * 
+ * map中的key是有限的个数，并且每一个key必须是精确的一个value关联。
+ * 
+ * Maps，它的keys集合， values集合，都可以迭代。
+ * 迭代的顺序根据不同的map类型的实现而定义。比如:
+ *    简单的 [HashMap] 是无序的，没有顺序可以保证。
+ *    [LinkedHashMap] 根据插入的顺序进行迭代。
+ *    一个排序好的map，像[SplayTreeMap]根据排序顺序迭代keys。
+ * 当一个操作在map中执行时，比如函数调用，在[forEach], [putIfAbsent]调用时，通常
+ * 是不被允许修改map（删除，增加keys）。
+ * 当迭代key或者value时，修改map，也可能打断迭代。
+ * 
+ * 当元素在map中时，通常不会允许修改keys的相等性，一些专门的子类可能宽松些，在这些案例中，
+ * 他们必须用文档标识出这些行文。
+ * 
+ * 
+ * A collection of key/value pairs, from which you retrieve a value
+ * using its associated key.
+ *
+ * There is a finite number of keys in the map,
+ * and each key has exactly one value associated with it.
+ *
+ * Maps, and their keys and values, can be iterated.
+ * The order of iteration is defined by the individual type of map.
+ * Examples:
+ *
+ * * The plain [HashMap] is unordered (no order is guaranteed),
+ * * the [LinkedHashMap] iterates in key insertion order,
+ * * and a sorted map like [SplayTreeMap] iterates the keys in sorted order.
+ *
+ * It is generally not allowed to modify the map (add or remove keys) while
+ * an operation is being performed on the map, for example in functions called
+ * during a [forEach] or [putIfAbsent] call.
+ * Modifying the map while iterating the keys or values
+ * may also break the iteration.
+ *
+ * It is generally not allowed to modify the equality of keys (and thus not
+ * their hashcode) while they are in the map. Some specialized subtypes may be
+ * more permissive, in which case they should document this behavior.
+ */
+abstract class Map<K, V> {
+  /**
+   * external factory Map();
+   *  
+   * 创建一个Map实例，默认实现是[LinkedHashMap]实例。
+   * 
+   * 这个构造器等价于非常量的 map 字面量 `<k, v>{}`
+   * 
+   * `LinkedHashMap`需要实现了合适的`operator==`和`hashCode`的，并且允许使用null作为key的
+   * keys集合。它按照key的插入顺序进行迭代。
+   * 
+   * 
+   * Creates a Map instance with the default implementation, [LinkedHashMap].
+   *
+   * This constructor is equivalent to the non-const map literal `<K,V>{}`.
+   *
+   * A `LinkedHashMap` requires the keys to implement compatible
+   * `operator==` and `hashCode`, and it allows null as a key.
+   * It iterates in key insertion order.
+   */
+  external factory Map();
+
+  /**
+   * Map.from(Map other) = LinkedHashMap<K, V>.from;
+   * 创建一个[LinkedHashMap]实例，并且包含 other map的所有 key-value对。
+   * 
+   * 这些key必须是[k]类型的实例，且value是[V]类型的实例。other map自身必须可以拥有任何类型。
+   * 
+   * `LinkedHashMap`需要实现了合适的`operator==`和`hashCode`的，并且允许使用null作为key的
+   * keys集合。它按照key的插入顺序进行迭代。
+   * 
+   * 
+   * Creates a [LinkedHashMap] instance that contains all key/value pairs of
+   * [other].
+   *
+   * The keys must all be instances of [K] and the values of [V].
+   * The [other] map itself can have any type.
+   *
+   * A `LinkedHashMap` requires the keys to implement compatible
+   * `operator==` and `hashCode`, and it allows `null` as a key.
+   * It iterates in key insertion order.
+   */
+  factory Map.from(Map other) = LinkedHashMap<K, V>.from;
+
+  /**
+   * Map.of(Map<K, V> other) = LinkedHashMap<K, V>.of;
+   * 创建一个[LinkedHashMap]实例，并且包含 other map的所有 key-value对。
+   * 
+   * 这些key必须是[k]类型的实例，且value是[V]类型的实例。other map自身必须可以拥有任何类型。
+   * 
+   * `LinkedHashMap`需要实现了合适的`operator==`和`hashCode`的，并且允许使用null作为key的
+   * keys集合。它按照key的插入顺序进行迭代。
+   * 
+   * 
+   * Creates a [LinkedHashMap] with the same keys and values as [other].
+   *
+   * A `LinkedHashMap` requires the keys to implement compatible
+   * `operator==` and `hashCode`, and it allows `null` as a key.
+   * It iterates in key insertion order.
+   */
+  factory Map.of(Map<K, V> other) = LinkedHashMap<K, V>.of;
+
+  /**
+   * Map.unmodifiable(Map<dynamic, dynamic> other);
+   * 创建一个不可修改的hash基础的base，包含other map的所有key-value对。
+   * 
+   * 这些key必须是[K]类型的实例，而value必须是[v]类型的实例。other map自身可以包含任何类型。
+   * 
+   * `LinkedHashMap`需要实现了合适的`operator==`和`hashCode`的，并且允许使用null作为key的
+   * keys集合。它按照key的插入顺序进行迭代。被创建的map以固定的顺序迭代keys，保存other map提供的顺序。
+   * 
+   * 这个结果map行为像 Map.from的结果，除了这个map通过构造器返回的是不可修改的。
+   * 
+   * 
+   * Creates an unmodifiable hash based map containing the entries of [other].
+   *
+   * The keys must all be instances of [K] and the values of [V].
+   * The [other] map itself can have any type.
+   *
+   * The map requires the keys to implement compatible
+   * `operator==` and `hashCode`, and it allows `null` as a key.
+   * The created map iterates keys in a fixed order,
+   * preserving the order provided by [other].
+   *
+   * The resulting map behaves like the result of [Map.from],
+   * except that the map returned by this constructor is not modifiable.
+   */
+  external factory Map.unmodifiable(Map<dynamic, dynamic> other);
+
+  /**
+   * factory Map.identity() = LinkedHashMap<K, V>.identity;
+   * 用默认的实现创建一个含有ID的map [LinkedHashMap]。
+   * 
+   * 一个ID map 使用 [identical]方法判断相等，且 使用keys的hashcode的 [identityHashCode]
+   * 来代替==操作和[Object.hashCode].
+   * 返回的map允许使用 `null` 作为 key值。
+   * 这个map的迭代顺序根据key的插入顺序。
+   * 
+   * 
+   * 
+   * Creates an identity map with the default implementation, [LinkedHashMap].
+   *
+   * An identity map uses [identical] for equality and [identityHashCode]
+   * for hash codes of keys instead of the intrinsic [Object.operator==] and
+   * [Object.hashCode] of the keys.
+   *
+   * The returned map allows `null` as a key.
+   * It iterates in key insertion order.
+   */
+  factory Map.identity() = LinkedHashMap<K, V>.identity;
+
+  /**
+   * factory Map.fromIterable(Iterable iterable,
+      {K key(element)?, V value(element)?}) = LinkedHashMap<K, V>.fromIterable;
+   * 
+   * 创建一个Map实例， 它的keys-values都是从iterable的数据源中获取，并且属性是计算型的。
+   * 创建的map是一个[LinkedHashMap]类型的实例。
+   * `LinkedHashMap`实例需要的key值，实现合适的==以及hashcode，并且它允许key值为null，
+   * 它根绝插入顺序进行迭代。
+   * 
+   * 对于Iterable数据源的每一个元素，通过各自申请key-value,这个构造器计算每一对key-value对.
+   * 
+   * 下面的例子从List中创建一个新的Map。这个map的keys是list的value值转换成字符串，map的value
+   * 是list的值的平方。
+   * 
+   *     List<int> list = [1, 2, 3];
+   *     Map<String, int> map = new Map.fromIterable(list,
+   *         key: (item) => item.toString(),
+   *         value: (item) => item * item);
+   *
+   *     map['1'] + map['2']; // 1 + 4
+   *     map['3'] - map['2']; // 9 - 4
+   * 
+   * 如果对于key-value如果没有值被指定，那么默认值是一个id函数。
+   * 在接下来的例子中， map 的这些 keys 和对应的 values 是 List 的 values值。
+   *     map = new Map.fromIterable(list);
+   *     map[1] + map[2]; // 1 + 2
+   *     map[3] - map[2]; // 3 - 2
+   * 通过iterable数据源获取的计算属性的keys，不需要key是唯一的。这个最后出现的可以、
+   * 将会简单的覆盖任何之前的值。
+   * 
+   * 
+   * 
+   * Creates a Map instance in which the keys and values are computed from the
+   * [iterable].
+   *
+   * The created map is a [LinkedHashMap].
+   * A `LinkedHashMap` requires the keys to implement compatible
+   * `operator==` and `hashCode`, and it allows null as a key.
+   * It iterates in key insertion order.
+   *
+   * For each element of the [iterable] this constructor computes a key/value
+   * pair, by applying [key] and [value] respectively.
+   *
+   * The example below creates a new Map from a List. The keys of `map` are
+   * `list` values converted to strings, and the values of the `map` are the
+   * squares of the `list` values:
+   *
+   *     List<int> list = [1, 2, 3];
+   *     Map<String, int> map = new Map.fromIterable(list,
+   *         key: (item) => item.toString(),
+   *         value: (item) => item * item);
+   *
+   *     map['1'] + map['2']; // 1 + 4
+   *     map['3'] - map['2']; // 9 - 4
+   *
+   * If no values are specified for [key] and [value] the default is the
+   * identity function.
+   *
+   * In the following example, the keys and corresponding values of `map`
+   * are `list` values:
+   *
+   *     map = new Map.fromIterable(list);
+   *     map[1] + map[2]; // 1 + 2
+   *     map[3] - map[2]; // 3 - 2
+   *
+   * The keys computed by the source [iterable] do not need to be unique. The
+   * last occurrence of a key will simply overwrite any previous value.
+   */
+  factory Map.fromIterable(Iterable iterable,
+      {K key(element)?, V value(element)?}) = LinkedHashMap<K, V>.fromIterable;
+
+  /**
+   * factory Map.fromIterables(Iterable<K> keys, Iterable<V> values) =
+      LinkedHashMap<K, V>.fromIterables;
+
+      创建关联被传入的key-value的map实例。
+
+      被创建的map是一个[LinkedHashMap].
+      
+      `LinkedHashMap`需要key实现兼容的==与`hashcode`, 它还允许null做为key值。
+      它根据key的插入顺序进行迭代。
+
+      这个构造器度迭代 keys和values，以及maps中的 [keys]中的每一个元素以及相关联的[values]
+      中的每一个元素。
+   * 
+   *     List<String> letters = ['b', 'c'];
+   *     List<String> words = ['bad', 'cat'];
+   *     Map<String, String> map = new Map.fromIterables(letters, words);
+   *     map['b'] + map['c'];  // badcat
+   * 
+   *  如果[keys]包含同样的对象多次， 最后出现的将会覆盖之前的值。
+   *  
+   *  这两个Iterable必须有相同的长度。
+   * 
+   * 
+   * Creates a Map instance associating the given [keys] to [values].
+   *
+   * The created map is a [LinkedHashMap].
+   * A `LinkedHashMap` requires the keys to implement compatible
+   * `operator==` and `hashCode`, and it allows null as a key.
+   * It iterates in key insertion order.
+   *
+   * This constructor iterates over [keys] and [values] and maps each element of
+   * [keys] to the corresponding element of [values].
+   *
+   *     List<String> letters = ['b', 'c'];
+   *     List<String> words = ['bad', 'cat'];
+   *     Map<String, String> map = new Map.fromIterables(letters, words);
+   *     map['b'] + map['c'];  // badcat
+   *
+   * If [keys] contains the same object multiple times, the last occurrence
+   * overwrites the previous value.
+   *
+   * The two [Iterable]s must have the same length.
+   */
+  factory Map.fromIterables(Iterable<K> keys, Iterable<V> values) =
+      LinkedHashMap<K, V>.fromIterables;
+
+  /**
+   *  static Map<K2, V2> castFrom<K, V, K2, V2>(Map<K, V> source) =>
+      CastMap<K, V, K2, V2>(source);
+   *    
+   *  适配[source] 的数据源, 转换成一个 `Map<K2, V2>`类型。
+   *  
+   *  每一次这个集合将会生成一个key或者value，但是不是[K2]类型，或者[V2]类型，这次访问将会
+   * 抛出异常。 
+   * 
+   *  每一次[k2]类型的key， 或者[v2]类型的value将试图添加进一个适配的map中，这个存储将会
+   * 抛出异常，除非key也是[k]的实例，value也是[V]的实例。
+   * 
+   * 如果source数据源的所有已访问的入口有[k2]类型的key和[v2]类型的value， 并且如果所有被添加到返回map的
+   * entries有[K]类型的key，[v]类型的values，那么这个返回的map将会作为 `mAP<K2, V2>`类型。
+   * 
+   * 
+   * Adapts [source] to be a `Map<K2, V2>`.
+   *
+   * Any time the set would produce a key or value that is not a [K2] or [V2],
+   * the access will throw.
+   *
+   * Any time [K2] key or [V2] value is attempted added into the adapted map,
+   * the store will throw unless the key is also an instance of [K] and
+   * the value is also an instance of [V].
+   *
+   * If all accessed entries of [source] are have [K2] keys and [V2] values
+   * and if all entries added to the returned map have [K] keys and [V]] values,
+   * then the returned map can be used as a `Map<K2, V2>`.
+   */
+  static Map<K2, V2> castFrom<K, V, K2, V2>(Map<K, V> source) =>
+      CastMap<K, V, K2, V2>(source);
+
+  /**
+   * factory Map.fromEntries(Iterable<MapEntry<K, V>> entries) =>
+      <K, V>{}..addEntries(entries);
+   * 
+   * 创建一个新的map，增加所有的entries。
+   * 
+   * 所有的entries按照迭代顺序被全部添加，并返回一个新的`Map<key, value>`类型的Map。
+   * 
+   * 如果多个[entires]有很多相同的key， 后面出现的覆盖更早出现的。
+   * 
+   * 
+   * Creates a new map and adds all entries.
+   *
+   * Returns a new `Map<K, V>` where all entries of [entries]
+   * have been added in iteration order.
+   *
+   * If multiple [entries] have the same key,
+   * later occurrences overwrite the earlier ones.
+   */
+  factory Map.fromEntries(Iterable<MapEntry<K, V>> entries) =>
+      <K, V>{}..addEntries(entries);
+
+  /**
+   * Map<RK, RV> cast<RK, RV>();
+   * 如果需要，提供一个有[RK]的key，[RV]实例的map的视图，
+   * 如果这个map已经是 `Map<RK, RV>`类型，那么它不做任何转换。
+   * 
+   * 如果这个集合包含仅仅 [RK] 类型的keys，[RV]类型的values，所有读取操作将会正确工作。
+   * 如果任何操作显示是非 [RK] 类型的key， 非 [RV] 类型的value， 这个操作将会抛出异常。
+   * 
+   * 添加进入到map中的 entries， 对于`Map<K, V>`和`Map<RK, RV>`类型 必须是有效的，
+   * 
+   * 
+   * Provides a view of this map as having [RK] keys and [RV] instances,
+   * if necessary.
+   *
+   * If this map is already a `Map<RK, RV>`, it is returned unchanged.
+   *
+   * If this set contains only keys of type [RK] and values of type [RV],
+   * all read operations will work correctly.
+   * If any operation exposes a non-[RK] key or non-[RV] value,
+   * the operation will throw instead.
+   *
+   * Entries added to the map must be valid for both a `Map<K, V>` and a
+   * `Map<RK, RV>`.
+   */
+  Map<RK, RV> cast<RK, RV>();
+
+  /**
+   * bool containsValue(Object? value);
+   * 
+   * 如果map包含某个value值，那么返回true，否则返回false。
+   * 如果在map中的任何values，通过==操作，等于传入的value，那么就返回true；否则返回false。
+   * 
+   * 
+   * Returns true if this map contains the given [value].
+   *
+   * Returns true if any of the values in the map are equal to `value`
+   * according to the `==` operator.
+   */
+  bool containsValue(Object? value);
+
+  /**
+   * bool containsKey(Object? key);
+   * 
+   * 如果这个map包含被传入的key，那么返回true；否则返回false；
+   * 如果在map中的key，通过使用等号==，等于传入的key，那么就返回true，否则返回false。
+   * 
+   * 
+   * Returns true if this map contains the given [key].
+   *
+   * Returns true if any of the keys in the map are equal to `key`
+   * according to the equality used by the map.
+   */
+  bool containsKey(Object? key);
+
+  /**
+   * V? operator [](Object? key);
+   * 根据参数key，返回对应的value； 如果key不在map中，则返回null。
+   * 
+   * 一些map允许null作为value值。
+   * 对于这些maps，使用 这个操作的查表不能区分一个key是否在map中和key是对应value的值为null。
+  *  如果区分很重要，那么像[containsKey]或者[putIfAbsent]方法能够被用来做判断。
+   * 
+   * 
+   * Returns the value for the given [key] or null if [key] is not in the map.
+   *
+   * Some maps allow keys to have `null` as a value.
+   * For those maps, a lookup using this operator cannot distinguish between a
+   * key not being in the map and the key having a `null` value.
+   * Methods like [containsKey] or [putIfAbsent] can be used if the distinction
+   * is important.
+   */
+  V? operator [](Object? key);
+
+  /**
+   * void operator []=(K key, V value);
+   * 
+   * 根据传入的参数，获取key相关联的value。
+   * 如果key已经在map中，它关联的value发生变化（即覆盖原来的vlaue值),
+   * 否则key-value对将被添加到map中。 
+   * 
+   * Associates the [key] with the given [value].
+   *
+   * If the key was already in the map, its associated value is changed.
+   * Otherwise the key/value pair is added to the map.
+   */
+  void operator []=(K key, V value);
+
+  /**
+   *  Iterable<MapEntry<K, V>> get entries;
+   *  获取这个map的所有entries对象，每个entries对象包含有key-value; 
+   * 
+   * The map entries of [this].
+   */
+  Iterable<MapEntry<K, V>> get entries;
+
+  /**
+   * Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> f(K key, V value));
+   * 这个map的所有entries通过传入的[f]函数进行转换。
+   * 
+   * Returns a new map where all entries of this map are transformed by
+   * the given [f] function.
+   */
+  Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> f(K key, V value));
+
+  /**
+   * void addEntries(Iterable<MapEntry<K, V>> newEntries);
+   * 增加entries的所有key-value对 到 map中。
+   * 如果entries的key已经在这个map中，对应的value会被覆盖。
+   * 
+   * 对于iterable中的每一个[MapEntry],通过`this[entry.key] = entry.value`来判断是否相等。
+   * 
+   * 
+   * Adds all key/value pairs of [newEntries] to this map.
+   *
+   * If a key of [newEntries] is already in this map,
+   * the corresponding value is overwritten.
+   *
+   * The operation is equivalent to doing `this[entry.key] = entry.value`
+   * for each [MapEntry] of the iterable.
+   */
+  void addEntries(Iterable<MapEntry<K, V>> newEntries);
+
+  /**
+   * V update(K key, V update(V value), {V ifAbsent()?});
+   * 
+   * 根据提供的key更新value, 并且返回这个key对应的新value值。
+   * 如果key是存在的，唤起当前值的[update]，并且更新新的value到这个map中。
+   *  
+   * 如果key不存在，并且[ifAbsent]方法被提供， 调用[ifAbsent]方法，增加key和要返回的
+   * value到map中。
+   * 
+   * 如果key不存在，且[ifAbsend]也没有提供，那么就会报错。
+   * 
+   * 
+   * 
+   * Updates the value for the provided [key].
+   *
+   * Returns the new value of the key.
+   *
+   * If the key is present, invokes [update] with the current value and stores
+   * the new value in the map.
+   *
+   * If the key is not present and [ifAbsent] is provided, calls [ifAbsent]
+   * and adds the key with the returned value to the map.
+   *
+   * It's an error if the key is not present and [ifAbsent] is not provided.
+   */
+  V update(K key, V update(V value), {V ifAbsent()?});
+
+  /**
+   * void updateAll(V update(K key, V value));
+   * 
+   * 更新所有的values。
+   * 迭代map中的所有的entries， 并且使用 唤起[update]方法的结果来更改 value。
+   * 
+   * Updates all values.
+   *
+   * Iterates over all entries in the map and updates them with the result
+   * of invoking [update].
+   */
+  void updateAll(V update(K key, V value));
+
+  /**
+   * void removeWhere(bool predicate(K key, V value));
+   * 移除满足[predicate]的所有entries。
+   * 
+   * 
+   * Removes all entries of this map that satisfy the given [predicate].
+   */
+  void removeWhere(bool predicate(K key, V value));
+
+  /**
+   * V putIfAbsent(K key, V ifAbsent());
+   * 查找一个可以的value值，
+   * 
+   * 如果存在一个与key关联的value值，就返回value.
+   * 否则调用[ifAbsent] 去获取一个新的value值，将[key]与新的这个value进行关联，然后
+   * 返回新的value。
+
+   *     Map<String, int> scores = {'Bob': 36};
+   *     for (var key in ['Bob', 'Rohan', 'Sophena']) {
+   *       scores.putIfAbsent(key, () => key.length);
+   *     }
+   *     scores['Bob'];      // 36
+   *     scores['Rohan'];    //  5
+   *     scores['Sophena'];  //  7
+   * 调用[ifAbsent]时， 这个map此时必须没有增加或者删除key的操作。
+   * 
+   * 
+   * Look up the value of [key], or add a new value if it isn't there.
+   *
+   * Returns the value associated to [key], if there is one.
+   * Otherwise calls [ifAbsent] to get a new value, associates [key] to
+   * that value, and then returns the new value.
+   *
+   *     Map<String, int> scores = {'Bob': 36};
+   *     for (var key in ['Bob', 'Rohan', 'Sophena']) {
+   *       scores.putIfAbsent(key, () => key.length);
+   *     }
+   *     scores['Bob'];      // 36
+   *     scores['Rohan'];    //  5
+   *     scores['Sophena'];  //  7
+   *
+   * Calling [ifAbsent] must not add or remove keys from the map.
+   */
+  V putIfAbsent(K key, V ifAbsent());
+
+  /**
+   * void addAll(Map<K, V> other);
+   * 
+   * 从other map中增加所有的key-value键值对到这个map中。
+   * 如果other map的一个key在这个map中了，它的值会覆盖。
+   * 
+   * 对于other map中的每个key，以及关联的value， 相等性操作是通过 `this[key] = value`
+   * 判断。递归other map， 因此在迭代期间不能发生增加删除修改等改变。
+   * 
+   * 
+   * Adds all key/value pairs of [other] to this map.
+   *
+   * If a key of [other] is already in this map, its value is overwritten.
+   *
+   * The operation is equivalent to doing `this[key] = value` for each key
+   * and associated value in other. It iterates over [other], which must
+   * therefore not change during the iteration.
+   */
+  void addAll(Map<K, V> other);
+
+  /**
+   * V? remove(Object? key);
+   * 
+   * 如果key存在，那么map中删除key关联的value。 
+   * 
+   * 如果value被移除，那么就返回这个key对应的value。
+   * 如果可以不在这个map中，返回null。
+   * 
+   * 注意： value可以是null值，返回null值不总是代表这个key不存在。
+   * 
+   * 
+   * 
+   * Removes [key] and its associated value, if present, from the map.
+   *
+   * Returns the value associated with `key` before it was removed.
+   * Returns `null` if `key` was not in the map.
+   *
+   * Note that values can be `null` and a returned `null` value doesn't
+   * always mean that the key was absent.
+   */
+  V? remove(Object? key);
+
+  /**
+   * void clear();
+   * 移除这个map中的所有key-value键值对。
+   * clear()操作之后，这个map会是一个空的。
+   * 
+   * Removes all pairs from the map.
+   *
+   * After this, the map is empty.
+   */
+  void clear();
+
+  /**
+   * void forEach(void f(K key, V value));
+   * 
+   * 为这个map中的每一对key-value键值对申请[f]函数。
+   * 调用[f]方法，在方法中不能从这个map中不能增加，删除key。
+   * 
+   * Applies [f] to each key/value pair of the map.
+   *
+   * Calling `f` must not add or remove keys from the map.
+   */
+  void forEach(void f(K key, V value));
+
+  /**
+   * Iterable<K> get keys;
+   * 从这个map中获取Iterable对象。
+   * 
+   * 返回的Iterable对象有高效的`length`和`contains`操作，基于这个map的[length]和[containsKey]方法。
+   * 
+   * 迭代的顺序根据独自的`Map`实现而定义，但是在map中的改变必须保持一致性。
+   * 
+   * 当迭代keys时修改map，那么会中断这次迭代。
+   * 
+   * 
+   * The keys of [this].
+   *
+   * The returned iterable has efficient `length` and `contains` operations,
+   * based on [length] and [containsKey] of the map.
+   *
+   * The order of iteration is defined by the individual `Map` implementation,
+   * but must be consistent between changes to the map.
+   *
+   * Modifying the map while iterating the keys
+   * may break the iteration.
+   */
+  Iterable<K> get keys;
+
+  /**
+   * Iterable<V> get values;
+   * 
+   * 获取这个Map的value列表。
+   * 
+   * 这个values根据相关联的keys的顺序进行迭代。
+   * 这意味着并行的迭代[keys]和[values]将会提供成对的key-value.
+   * 
+   * 返回的Iterable对象，具有高效的`length`方法，基于map的`length`方法。
+   * 它的[Iterable.contains]方法是基于`==`比较的。
+   * 
+   * 当迭代vlaue时，如果修改这个map，迭代将会被中断。
+   * 
+   * 
+   * The values of [this].
+   *
+   * The values are iterated in the order of their corresponding keys.
+   * This means that iterating [keys] and [values] in parallel will
+   * provide matching pairs of keys and values.
+   *
+   * The returned iterable has an efficient `length` method based on the
+   * [length] of the map. Its [Iterable.contains] method is based on
+   * `==` comparison.
+   *
+   * Modifying the map while iterating the
+   * values may break the iteration.
+   */
+  Iterable<V> get values;
+
+  /**
+   * int get length;
+   * 获取这个map中key-value键值对的数量。
+   * 
+   * The number of key/value pairs in the map.
+   */
+  int get length;
+
+  /**
+   * 
+   * 如果map中没有一对key-value，那么返回true，否则返回false。
+   * Returns true if there is no key/value pair in the map.
+   */
+  bool get isEmpty;
+
+  /**
+   * bool get isNotEmpty;
+   * map中至少有一对key-value, 那么返回true，否则返回false。
+   * 
+   * Returns true if there is at least one key/value pair in the map.
+   */
+  bool get isNotEmpty;
+}
+
+/**
+ * MapEntry<K, V>
+ * 在Map中，使用key-value键值对代表一个entry。
+ * 
+ * 
+ * A key/value pair representing an entry in a [Map].
+ */
+class MapEntry<K, V> {
+  /** The key of the entry. */
+  final K key;
+
+  /** The value associated to [key] in the map. */
+  final V value;
+
+  /** Creates an entry with [key] and [value]. */
+  const factory MapEntry(K key, V value) = MapEntry<K, V>._;
+
+  const MapEntry._(this.key, this.value);
+
+  String toString() => "MapEntry(${key.toString()}: ${value.toString()})";
+}
+
+```
+
+
+
+
+
 # 第七篇 函数定义与形参，箭头函数，匿名函数，闭包
+
+
 
 # 第八篇 类与对象
 
+
+
 # 第九篇 类， 静态成员，操作符，继承
+
+
 
 # 第十篇  抽象类，接口，多态
 
+
+
 # 第十一篇 类实现多个接口，以及mixins
 
+
+
 # 第十二篇 泛型，泛型方法，泛型类，泛型接口
+
+
 
 # 第十三篇 库，自定义库，系统库，第三方库
 
 
 
 
-
-
-
-```dart
-void main() {
-  /***
-   * 1.关于const 修饰 List
-   *    (1) 被const修饰的List，初始化的时候只允许使用常量形式的数组初始化, 且常量形式数组中的元素也不能含有变量， 不能用new List()方式。
-   *    (2) 被const修饰的List，不允许增加，删除，修改元素； 且不能被其他变量引用的数组所初始化;
-   *   所以dart中的const 与 js中的const不同，dart中的const只建议用在int,double, string上；
-   *    
-   *    //正确情形
-   *    const list = ["Java", "Js"]
-   *    const list1 = [{ "language": "java"; "salary": "20000" }, {"language": "js"; "salary": "10000"}]
-   *     
-   *    //错误情形:
-   *    
-   * 
-   * 2.关于final 修饰 List
-   *    dart中的final相当于js中的const，被修饰的变量不允许再被直接赋值，但是如果是对象或者数组，则允许修改内部属性或者元素；
-   */
-
-  //1.初始化
-  //  对List类型变量使用const关键字限定，数组将会变为 unmodifiable list， 即不可以直接增加，修改，删除元素。
-
-  const temp = "123";
-  final list = ["Java", temp, "object-c", "dart"];
-  list[2] = "";
-  print(list);
-  var list1 = new List();
-  list1.add(["Java", "Javascript", "object-c", "dart"]);
-
-  var map = {"name": 'meng', "age": 18};
-
-  final list2 = [map];
-  list2[0] = {"name": 'meng', "age": 19};
-  list2.add({"name": 'meng', "age": 20});
-
-  list[1] = "c++";
-  /**
-   * List的常用属性
-   *  length: 获取数组的长度
-   */
-  int length = list.length;
-
-  List a = null;
-  /***
-   * List的常用方法
-   * 1. 增加单个元素到数组末尾
-   * 2. 增加多个元素到数组末尾(以数组形式传参)
-   * 3. 判断数组是否为空
-   * 4. 判断数组是否不为空
-   */
-  // list.add("pyhton");
-  // list.addAll(["golang", "kotlin", "c", "c++"]);
-
-  // print(a.runtimeType);
-}
-
-void test(final List list) {}
-
-```
 
 
 
