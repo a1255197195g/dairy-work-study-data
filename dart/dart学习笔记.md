@@ -3222,11 +3222,505 @@ class MapEntry<K, V> {
 
 # 第七篇 函数定义与形参，箭头函数，匿名函数，闭包
 
+## 定义函数，以及函数的使用
+
+ dart中函数可以不写参数类型，也可以不写返回类型。但是形参与实参的个数必须相同。
+
+```dart
+#虽然类型都可以通过实参，或者返回值来推断类型，但是还是建议在定义函数的时候，把参数类型，返回值类型都加上。
+main(){
+    print( test(2) ); //返回结果是4
+}
+
+test( param ){
+    return param + 2;
+}
+```
+
+```dart
+#推荐的函数定义方式
+#如果函数没有返回值，返回值类型可以写void。
+    
+String test( int a, String b ) {
+    return a.toString() + b;  
+}
+```
+
+## 方法传参
+
+```dart
+//像es6那种方式定义函数，不过需要实参与形参个数相等。
+//建议在定义函数时，加上参数的类型，以及返回值类型。
+
+// 在调用的时候，实参个数必须与定义函数时候的形式参数个数，类型一致。
+int add(int first, int second) {
+  return first + second;
+}
+
+double add_double(double first, double second) {
+  return first + second;
+}
+
+void main() {
+  int iResult = add(1, 2);
+  print(iResult);
+
+  double dResult = add_double(1.0, 2.0);
+  print(dResult);
+}
+```
+
+```dart
+#如果参数是int，double，String类型，属于值传递。
+void main() {
+  int a = 10;
+  test(a);  //11
+  print(a.hashCode); //10
+
+  print("==============================>");
+  double b = 20.0;
+  testb(b);  //50
+  print(b.hashCode); //20
+
+  print("==============================>");
+  String c = "abcdefg";
+  test(c.hashCode); //180814201 即传入的参数是根据形参拷贝的一份。
+  print(c.hashCode); //180814200 
+
+  String d = c;
+  print(d.hashCode); //180814200
+}
+
+void test(int a) {
+  a++;
+  print(a.hashCode);
+}
+
+void testb(double b) {
+  b += 30;
+  print(b.hashCode);
+}
+
+void testStr(String c) {
+  print(c.hashCode);
+}
+```
+
+```dart
+# 如果是List、Map、Set、Object及其子类，将采用引用传值的方式。
+# 即形参，实参指向同一个对象，则当改变这个对象中的属性的时候；形参，实参都会更改。
+void main() {
+  List<String> list = new List<String>();
+  list.add("1");
+  list.add("2");
+  list.add("3");
+  test(list);
+  print(list);
+}
+
+void test(List<String> list) {
+  print(list);
+  list[0] = "4";
+}
+```
+
+## 可省略参数
+
+可以在形参列表中使用`[]`的方式，来表示某些参数可以传值，也可以不传值。
+
+<font color="red">但是可省略的参数，必须存在于必传参数的后面。</font>
+
+```dart
+void main() {
+  int result = add(1, 2);
+  print(result);
+}
+
+int add(int a, int b, [int c, int d]) {
+  if (c == null) {
+    c = 20;
+  }
+  if (d == null) {
+    d = 30;
+  }
+  return a + b + c + d;
+}
+```
+
+
+
+## 默认参数
+
+默认参数是在可省略参数的基础上实现的，对于可省略参数，可以赋予默认值，当然赋予了默认值的参数，也是可以接受传参的。
+
+```dart
+void main() {
+  //不采用默认值，直接传递所有参数给被调用的函数。
+  addUserInfo(1, "meng", 22, "男"); 
+  //可省略参数不传值，则有默认值的可选参数被赋予默认值，没有默认值的可选参数被赋予null。  
+  addUserInfo(2, "meng1");
+}
+
+//在[]中设置可省略参数，且可以为可省略参数赋予一个默认值。
+void addUserInfo(int id, String username, [int age = 20, String sex]) {
+  print("id： $id, username: $username, age: $age, sex: $sex");
+}
+```
+
+
+
+## 命名参数
+
+可以使用{}来包裹形式部分或者全部的形参，被{}包裹的形参具有以下特点：
+
+- 命名参数 是 可省略参数。
+- 命名参数 可以设置默认值。
+- 命名参数 的传参不需要根据形参定义的顺序去传参。
+
+```dart
+void main() {
+  addUserInfo(10, gender: "男");
+  addUserInfo(10, username: "meng", gender: "男", age: 24);
+}
+
+void addUserInfo(int id, {String username = "ze", int age, String gender}) {
+  print("id: $id, username: $username, age: $age, gender: $gender");
+}
+```
+
+
+
+## 方法作为参数
+
+```dart
+#dart中可以在函数体内定义函数，匿名函数；
+#dart中的函数可以赋值给一个变量，且可以当做一个实参传递给函数。
+void main() {
+  var test = () {
+    print("hello world2");
+  };
+  test2(test);
+  test3(test);
+
+  print(test.runtimeType); //类型是() => Null
+}
+
+void test2(var test) {
+  print("hello world");
+  test();
+}
+
+void test3(var test) {
+  print("hello world3");
+  test();
+}
+```
+
+
+
+## 箭头函数
+
+```dart
+箭头函数是一种简写方式，无论箭头函数有没有形参（或者一个形参），代表参数列表的小括号都不能省略。
+当函数体内只有一条执行语句，且不需要返回值的时候，可以使用箭头函数简写。
+    
+void main() {
+  Map map = {"name": "123", "age": "456"};
+  var temp = (key, value) => print(key + " : " + value);
+  map.forEach(temp);
+
+  List list = ["苹果", "梨子", "香蕉"];
+  list.forEach((e) => print(e));
+}
+```
+
+
+
+## 匿名函数
+
+```dart
+#箭头函数就是匿名函数的一种。
+#匿名函数一般作为一种变量或者实参使用，用于传递给其他变量之后，再在特定位置，特定时间去调用。
+
+#通常匿名函数的定义形式： ①（形参列表）{ 函数体 }； ② （形参列表）=> xxxxx; 
+void main() {
+  ["11", "22", "33"].forEach((element) {
+    var temp = element + "12";
+    print(temp);
+    return temp;
+  });
+
+  var anonymous = (int a, int b) {
+    int c = a + b;
+    return c;
+  };
+  int result = anonymous(1, 2);
+  print(result);
+}
+```
+
+
+
+## 闭包
+
+```dart
+#闭包是「函数」和「函数内部能访问到的变量」（也叫环境）的总和， 一种特殊的环境。
+优点：  定义的变量能在全局环境下使用，但是又不会污染全局环境。
+#缺点： 容易造成循环引用，从而造成内存泄漏。
+
+两种常见的闭包形式：    
+（1）从函数 A 内部返回一个函数 B ，函数 B 在外部被调用时，能继续操作函数 A 内的变量或者对象。
+（2）在函数 A 内，调用一个函数 B ，函数 B 有参数时匿名函数，且这个匿名函数直接在A内定义，此时这个匿名函数在实际被调用时，就能操作函数 A 内的变量或者对象。
+    
+void main() {
+  var utilsFunc = createUtils(10, ["苹果", "梨子", "，香蕉"], 2);
+  utilsFunc();
+}
+
+createUtils(int i, list, step) {
+  return () {
+    print(i);
+    print(list);
+    print(step);
+  };
+}
+```
+
+
+
 
 
 # 第八篇 类与对象
 
+Dart是一门面向对象的语言，一切姐对象。Dart中所有的类，都是Object的子类。
 
+## 面向对象特征
+
+- 封装
+
+  封装是对象和类概念的主要特性。
+
+  封装：把客观事物封装成抽象的类，并且把自己的部分属性和方法提供给其他对象调用，而一部分的属性和方法则隐藏。
+
+- 继承
+
+  面向对象语言的一个主要功能就是继承。
+
+  继承是指这样的一种能立：它可以使用现有类的功能，并在无需重新编写原来的类的情况下对这些功能进行扩展。
+
+- 多态
+
+  允许将子类类型的指针赋值给父类类型的指针，同一个函数调用会有不同的执行效果。
+
+
+
+## 创建一个简单类
+
+```dart
+#当一个类没有定义构造函数的时候，编译器会默认添加一个无参数的构造函数。
+#使用 class 关键字来定义一个类， 默认继承Object对象。
+    
+void main() {
+  Person person = new Person();
+  print(person);
+}
+
+//使用 class 关键字来定义一个Person类。
+class Person {
+  //定义 Person 类型的成员属性  
+  String name = "meng";
+  int age = 24;
+  String gender = "男";
+	
+  //定义 Person 类型的成员方法  
+  showInfo() {
+    return "name: $name, age: $age, gender: $gender";
+  }
+  
+  //覆盖父类的方法
+  @override
+  String toString() {
+    return "name: $name, age: $age, gender: $gender";
+  }
+}
+```
+
+
+
+## 定义构造函数
+
+- 类的构造函数，是一个不需要写返回值类型，函数名与类型名一模一样。
+
+  ```dart
+  class Person {
+      Person( String name, int age ){
+          ...
+      }
+  }
+  ```
+
+  
+
+- 默认的构造函数
+
+  如果定义的类里面，没有定义构造函数，则编译器会定义一个无参数的构造函数。
+
+  ```dart
+  class Person {
+      
+  }
+  #编译器会在Perosn类中添加一个无参数的构造函数。
+  #Person(){}
+  ```
+
+  
+
+- 命名构造函数
+
+  因为dart不允许函数重载，所以不允许出现多个同名的构造函数，所以才会有命名构造函数。
+
+  ```dart
+  #1.可以不定义构造函数，编译器会有一个默认的无参数的构造函数。当然如果定义了构造函数，则不会添加这个默认的无参数的构造函数。
+  #2.只能定义一个与类名相同的函数，参数可以任意个数。
+  
+  void main() {
+    Person person = new Person("meng", 25, "男");
+    print(person);
+  
+    Person person1 = new Person.initName("meng111");
+    print(person1);
+  
+    Person person2 = new Person.initInfo("meng222", 22, "女");
+    print(person2);
+  }
+  
+  class Person {
+    String name = "meng";
+    int age = 24;
+    String gender = "男";	
+  	
+    //只能定义一个与类名完全相同的构造器函数
+    Person(String name, int age, String gender) {
+      this.name = name;
+      this.age = age;
+      this.gender = gender;
+    }
+  
+    //命名构造函数 initName()
+    //调用形式就是： Person person = new Perosn.initName(xxx)  
+    Person.initName(String name) {
+      this.name = name;
+    }
+  
+    //命名构造函数 initInfo(xx,xx,xx)
+    //调用形式就是： Person person = new Person.initInfo(xx,xx,xx)
+    Person.initInfo(String name, int age, String gender) {
+      this.name = name;
+      this.age = age;
+      this.gender = gender;
+    }
+  
+    @override
+    String toString() {
+      return "name: $name, age: $age, gender: $gender";
+    }
+  }
+  ```
+
+  
+
+* 在构造函数体内语句执行之前就初始化成员属性的两种形式。
+
+  在定义成员属性就赋予初始值 与 构造函数初始化列表中赋予初始值的<font color='red'>执行时机更早</font>。
+
+  ```
+  void main() {
+    Person person = new Person("meng", 25, "男");
+    print(person);
+  
+    Person person1 = new Person.initName("meng111");
+    print(person1);
+  
+    Person person2 = new Person.initInfo("meng222", 22, "女");
+    print(person2);
+  }
+  
+  
+  class Person {
+    
+    #1.在定义成员属性的时候就赋予初始值
+    String name = "meng";
+    int age = 24;
+    String gender = "男";
+  
+    #2.在构造函数的 "初始化列表" 中赋予初始值。
+    Person(String name, int age, String gender)
+        : name = 'mengze',
+          age = 18 {
+      print(this.name);
+    }
+    
+    # 在命名构造函数的 "初始化列表" 中赋予初始值。	
+    Person.initName(String name)
+        : age = 24,
+          gender = "男" {
+      this.name = name;
+    }
+  
+    # 在命名构造函数的 "初始化列表" 中赋予初始值。
+    Person.initInfo(String name, int age, String gender)
+        : name = "meng18",
+          age = 25,
+          gender = "女" {
+      this.name = name;
+      this.age = age;
+      this.gender = gender;
+    }
+  
+    @override
+    String toString() {
+      return "name: $name, age: $age, gender: $gender";
+    }
+  }
+  
+  ```
+
+  
+
+* 构造函数中，初始化成员属性的简洁写法
+
+  ```dart
+  void main() {
+    Person person = new Person("meng123", 25);
+    print(person);
+  
+    Person person1 = new Person.initName("meng111");
+    print(person1);
+  }
+  
+  
+  class Person {
+    String name = "meng";
+    int age = 24;
+    String gender = "男";
+  	
+    //在构造函数中，如果有this.name=name; this.age=age等语句，则可以直接将this.name, this.age写入到构造函数的参数列表中。
+     //注意，写入到构造函数的参数列表中的this.name, this.age; 则不允许再出现在 "构造函数的初始化列表" 中。 
+    Person(this.name, this.age) : gender = "女" {
+      print(this.name);
+      print(this.age);
+    }
+  	
+    //当然，命名构造函数享受与构造函数同样的规则。    
+    Person.initName(this.name)
+        : age = 24,
+          gender = "男" {
+      this.name = name;
+    }
+  }
+  ```
+
+  
 
 # 第九篇 类， 静态成员，操作符，继承
 
