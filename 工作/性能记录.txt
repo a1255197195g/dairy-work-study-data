@@ -1,0 +1,3 @@
+1.引入element-ui，echarts的后文件打包大小为 10.0M。
+2.删除掉element-ui之后的文件打包大小为  6.4M。
+3.部分导入element-ui {button,select}之后的文件打包大小为  7M。
