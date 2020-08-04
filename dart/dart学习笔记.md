@@ -3848,13 +3848,184 @@ class Person {
 
 
 
+## 对象操作符
+
+- ？ 条件运算符
+- as 类型强制转换
+- is  类型判断
+-  .. 级联操作
+
+```dart
+
+void main() {
+  Animal animal = new Person("张三")..name = "李四"; //可以通过 ".." 直接访问到对象内部的属性。
+  animal?.run(); //在调用run方法的时候，对animal对象进行了null值判断。如果为null，则不执行该方法。
+
+  (animal as Person).work(); //当父类对象指向子类的时候，而方法又是子类对象独有，这个时候可以使用 “as” 来强制对类型转换。
+
+  bool isPerson = animal is Person; //可以通过 “is” 来判断变量是否是某种类型.
+  Type type = animal.runtimeType;
+  print("isPerson: ${isPerson}, type: ${type}");
+}
+
+class Person extends Animal {
+  Person(String name) : super(name) {}
+
+  run() {
+    print("${name}在跑...");
+  }
+
+  work() {
+    print("${name}在工作...");
+  }
+}
+
+class Animal {
+  String name;
+  Animal(this.name) {}
+  run() {
+    print("${name}在跑...");
+  }
+}
+```
+
+
+
+
+
 # 第九篇 继承
 
 ## 继承
 
+- dart中使用 “extends” 关键字来标识继承父类。
+- dart中只支持单继承，即只允许有一个父类。但是可以通过"接口","mixins"来实现类似多继承。
+
+- 子类会继承父类里面可见的属性和方法，但是不会继承构造函数。
+- 子类能复写父类的方法 getter 和 setter。
+
+```
+class Person extends Animal {
+    Person(){
+    }
+}
+
+class Animal {
+	string name;
+	Animal(){
+	
+	}
+}
+```
+
+
+
 ## 覆写父类方法和属性
 
+dart中覆写父类的方法，必须方法，类型属性，返回值类型一致，否则报错。
+
+```dart
+class Person extends Animal {
+    Person( String name ):super(name) {
+    }
+    
+    run(){
+      print("${name} 正在百米冲刺")   
+    }
+}
+
+class Animal {
+    String name;
+    Animal(this.name){}
+    
+    run(){
+        print("${name} 正在跑")
+    }
+}
+```
+
+
+
 ## super关键字，调用父类方法或属性
+
+- dart中通过 "this" 关键字来引用对象本身的属性,方法，也可以引用没有被覆盖的父类属性以及方法。
+
+- dart中通过 “super” 关键字来引用对象父类中的属性，方法。(即使子类覆盖了父类的属性或者方法也没问题)
+
+```dart
+void main() {
+  Animal animal = new Person("张三")..name = "李四"; //可以通过 ".." 直接访问到对象内部的属性。
+  animal?.run(); //在调用run方法的时候，对animal对象进行了null值判断。如果为null，则不执行该方法。
+
+  (animal as Person).work(); //当父类对象指向子类的时候，而方法又是子类对象独有，这个时候可以使用 “as” 来强制对类型转换。
+
+  bool isPerson = animal is Person; //可以通过 “is” 来判断变量是否是某种类型.
+  Type type = animal.runtimeType;
+  print("isPerson: ${isPerson}, type: ${type}");
+}
+
+# 父类的构造方法，可以直接用 super()表示。
+class Person extends Animal {
+  Person(String name) : super(name) {}
+
+# 使用 super 关键字来调用父类的属性或者方法。
+  run() {
+    print("${super.name}在跑...");
+    super.run();
+  }
+
+  work() {
+    print("${name}在工作...");
+  }
+}
+
+class Animal {
+  String name;
+  Animal(this.name) {}
+  run() {
+    print("${name}在跑...");
+  }
+}
+
+```
+
+
+
+## 调用父类的构造方法，命名构造方法
+
+```
+class Person {
+	Person(){
+		super()
+	}
+	
+	Person.name(String name) {
+		super.setName(name);
+	}
+	
+	Person.age(int age) {
+		super.setAge(age);
+	}
+}
+
+class Animal {
+	String name;
+	int age;
+	double weight;
+	Animal(){
+	
+	}
+	
+	Animal.setName(String name){
+		this.name = name;
+	}
+	
+	Animal.setAge(int age) {
+		this.age = age;
+	}
+}
+```
+
+
 
 
 
@@ -3862,11 +4033,172 @@ class Person {
 
 ## 抽象类
 
+- dart中没有方法体的方法就是抽象方法。（不需要用abstract关键字声明）。
+- <font color="red">含有抽象方法的类，必须是抽象类，使用abstract修改类名。</font>
+- 子类继承的父类是抽象类试，必须实现抽象类中的所有抽象方法。
+- 抽象类作为接口使用的时候必须实现其所有的方法。
+- <font color="red">抽象类不能被实例化</font>，但是继承抽象类的子类可以生成实例。
+
+```dart
+//1.含有抽象方法的类，必须是抽象类，需要用abstract修饰。
+//2.抽象类因为含有未实现的方法，所以不能直接实例化。
+abstract class Animal {
+  String name;
+  //没有函数体的方法，自动判定为抽象方法。
+  run();
+}
+
+class Person extends Animal {
+  @override
+  run() {
+    print("${name}在跑步...");
+  }
+}
+
+void main() {
+  Animal animal = new Person()..name = "张三";
+  animal.run();
+}
+```
+
+
+
 ## 接口
+
+dart中并没有 interface 关键字去声明接口。而是每一个定义的类，都默认有一个接口对一个该类。
+
+- dart中的每一个类都可以成为一个接口，让其他的类去实现。
+
+- dart中使用 implements 去表示实现一个接口。
+- dart中允许实现多个接口。
+- dart中如果要实现指定接口，就必须实现该接口中的所有方法和<font color='red'>属性</font>。
+- 如果实现了指定接口，那么可以用接口类型的变量去指向该对象。
+
+```dart
+# dart中可以实现多个接口，但是必须实现接口中的所有属性和方法。
+void main() {
+  Animal animal = new Person()..name = "张三";
+  animal.run();
+}
+
+
+abstract class Animal {
+  String name;
+  run();
+}
+
+abstract class Car {
+  String name;
+  int age;
+
+  run();
+  test();
+}
+
+class Person implements Animal, Car {
+  // String name;
+  int age;
+  @override
+  run() {
+    print("${name}在跑步...");
+  }
+
+  test() {
+    print("");
+  }
+
+  get name {
+    return "";
+  }
+
+  set name(value) {}
+}
+
+```
+
+
+
+## 抽象类与接口对比
+
+- 如果要继承抽象类，则必须要实现抽象类的所有抽象方法，除非子类依然不能实例化。
+- 如果实现了指定接口，则必须要实现接口的所有方法以及属性。
+- 用抽象类继承的子类都用到了父类的同一个或者多个方法或者属性的情况下。 
+- 用接口继承的子类只是把父类作为一个模板和标准的时候，且需要自己实现全部的属性以及方法。
+
+
+
+
 
 ## 多态
 
+- dart中允许使用父类/祖先类的指针或者实现接口类型的指针，指向类实例。同一个函数调用会有不同的执行效果。
+- 原因：  
+  - 编译期间，dart检查引用类型是否实现被调用的方法或者属性，因为父类也存在被调用的属性或者方法，所以能通过编译检测。
+  - 运行期间，dart会获取到引用类型引用的对象的运行时真实类型(runtimeType),所以会调用运行时类型对应的方法或者属性。
+- 好处：
+  - 在强类型语言中，有利于功能的扩展。可以通过传递不同实现的子类实例，从而让原有程序通过父类引用调用原有方法时，展现出不同的功能实现。
+
+```dart
+class Person extend Animal {
+    run(){
+        print("person 在跑步")
+    }
+}
+
+class Animal {
+    run(){
+        print("animal 在跑步")
+    }
+}
+
+void main(){
+    //多态就发生在父类引用，指向子类实例的时候，且调用的方法或者属性，被子类所覆写。
+    Animal animal = new Person();
+    animal.run();
+}
+```
+
+
+
 ## mixins
+
+```
+# 可以将mixin理解成为一种装饰器，对某个类进行属性，方法的增强。
+# mixin确实实现了真正的多继承，如果存在同样的方法，则排列在mixin后面的覆盖前面的方法或者属性。
+# mixin实现的其实也是一种特殊的类，但是这个类不能再继承其它类。
+
+mixin Swimming {
+  String name;
+  void swim() {
+    print("${this.name}在游泳");
+  }
+}
+
+mixin Swimming1 {
+  String name;
+  void swim() {
+    print("${this.name}1在游泳");
+  }
+}
+
+class Person with Swimming1, Swimming {
+  Person(String name) {
+    this.name = name;
+  }
+  @override
+  void swim() {
+    print("游泳");
+    super.swim();  #表示mixin也是一种类。
+  }
+}
+
+void main() {
+  Person person = new Person("张三");
+  person.swim();
+}
+```
+
+
 
 
 
@@ -3874,25 +4206,237 @@ class Person {
 
 ## 泛型作用以及定义
 
+  泛型本质是指类型参数化，意思是允许在定义类，接口，方法时使用类型参数。当使用时指定具体类型，所有使用该泛型参数的地方都被统一化，保证类型一致。如果未指定具体类型，默认是Object类型。集合体系中的所有类都增加了泛型，泛型也主要用在集合中。
+
+
+
 ## 泛型的原理
+
+  泛型的实现是靠类型擦除技术，类型擦除是在编译期间完成的。也就是说在编译期间，编译器会将泛型的类型都擦除成为它的限定类型，如果没有则擦除为Object类型之后，在后去的时候再强制类型转换为对应的类型。在运行期间并没有泛型的任何信息，因此也没有优化。
+
+
+
+## 泛型的好处
+
+- 泛型简单易用。
+- 类型安全，泛型的主要目的就是为了实现类型检查。泛型可以让编译器在编译期间就知道一个对象的限定类型是什么，这样编译器就可以在一个高的程度上验证这个类型，而不是Object。
+- 消除了强类型转换，使得代码可读性好，减少出错的机会。
+- 提高代码的重用率。
+
+
 
 ## 泛型类
 
+- 如果类中的属性或者方法中的参数或者返回值，存在未确定类型，则可以在类型上声明泛型标识，则该类成为泛型类。
+- 泛型类的主要作用还是对传入的泛型参数进行类型的检查，如果传入泛型参数的类型不对，则会报错。
+- 在泛型类作为父类被继承时，泛型类型不同的类不是同一个类，比如  Animal<Rice>, Animal<Boom>。
+
+```dart
+class Animal<T> {
+  eat(T food) {
+    if (food is Rice) {
+      print("这是稻谷");
+    }
+    print("Animal eat ${food}");
+  }
+}
+
+class Rice {
+  @override
+  String toString() {
+    return "稻谷";
+  }
+}
+
+class Boom {
+  String toString() {
+    return "竹子";
+  }
+}
+
+# 继承泛型类时，需要指定泛型的类型。则
+class Person extends Animal<Rice> {}
+
+void main() {
+  Animal animal = new Person();
+  animal.eat(new Boom());
+}
+```
+
+
+
+继承的父类是泛型类时，子类不是泛型类。则需要在 extends 的时候就要指明父类是对何种类型进行检查，如果不指定，则默认是Object。
+
+```
+class Animal<T> {}
+class Person extends Animal<Rice>{  }
+```
+
+继承的父类是泛型类时，子类如果也是泛型类，则也可以将泛型标识T，K等作为类型传递给父类。
+
+```
+class Animal<K> {}
+class Person<T> extends Animal<T>{  }
+```
+
+
+
+## 泛型类的继承
+
+```
+class Animal<T> {
+  eat(T food) {
+    if (food is Rice) {
+      print("这是稻谷");
+    }
+    print("Animal eat ${food}");
+  }
+}
+
+class Rice {
+  @override
+  String toString() {
+    return "稻谷";
+  }
+}
+
+class Boom {
+  String toString() {
+    return "竹子";
+  }
+}
+
+class Person<T> extends Animal<T> {
+  sleep(T food) {
+    super.eat(food);
+  }
+}
+
+void main() {
+  Animal animal = new Person();
+  animal.eat(new Boom());
+}
+```
+
+
+
 ## 泛型方法
 
+如果是类的成员方法，如果在类上面声明了泛型标识，则可以不用在成员方法上去声明泛型就直接在方法体内使用。
+
+```dart
+class Cal {
+  double add<T, K>(T t, K k) {
+    return 1;
+  }
+}
+
+void main() {
+  Cal cal = new Cal();
+  cal.add<int, double>(2, 3.0);
+}
+```
+
+```dart
+class Cal<T, K> {
+    double add( T t, K k ){
+        return 1;
+    }
+}
+```
+
+
+
 ## 泛型接口
+
+接口上的泛型声明，与类中的泛型声明一样。在实现泛型接口时，与继承泛型类的处理方式一样。
+
+```
+class Person<T> {
+  work(T t) {}
+}
+
+# 由于 T 是不确定类型，而Person中的work参数是String类型，则报错。
+class Student<T> extends Person<String> {
+  @override
+  work(T t) {}
+}
+```
+
+```dart
+#在泛型类存在继承，泛型方法存在覆写的时候，要注意类型一致。
+class Person<K> {
+  work(K type) {}
+}
+
+class Student<T> extends Person<T> {
+  @override
+  work(T t) {}
+}
+```
+
+
 
 
 
 # 第十二篇 库 系统库，第三方库，自定义库
 
+dart不像js，天生就支持模块加载。所以在dart工程中，可以直接饮用其它库。
+
 ## 库的概念
+
+​	库，即一个或者多个模块的组合，具有高内聚，低耦合的特点。
 
 ## 系统库
 
+​	有dart语言中内置的库。比如:
+
+```dart
+import 'dart:math';
+import 'dart:io';
+import 'dart:convert'
+```
+
+
+
 ## 第三方库
 
-## 自定义库
+​	 由第三方库管理工具Pub的仓库管理的库。
+
+```dart
+https://pub.dev/packages
+https://pub.flutter-io.cn/packages
+https://pub.dartlang.org/flutter/
+
+1.需要在自己的项目的根目录新建一个 pubspec.yaml 文件。
+2.在 pubspec.yaml 文件中配置项目信息，描述，以及第三方库依赖。
+3.然后运行 pub get 获取包下载地址。
+4.项目中引入库 import 'package:http/http.dart' as http;
+```
+
+
+
+## 库的导入
+
+- 系统库的导入
+
+  ```
+  待补充
+  ```
+
+- 第三方库的导入
+
+  ```dart
+  待补充
+  ```
+
+- 自定义模块，库的导入
+
+  ```dart
+  待补充
+  ```
+
+  
 
 
 

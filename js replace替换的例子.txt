@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let string = `<table width=\"324\"><colgroup><col width=\"72\" span=\"6\" style=\"width:54pt\"/></colgroup><tbody><tr style=\"height:14.25pt\" class=\"firstRow\"><td class=\"xl65\" width=\"54\" style=\"\"><br/></td><td class=\"xl65\" width=\"54\" style=\"\">2020年</td><td class=\"xl65\" width=\"54\" style=\"\">2020年</td><td class=\"xl66\" width=\"54\" style=\"\">2020年</td><td class=\"xl66\" width=\"54\" style=\"\">2020年</td><td class=\"xl66\" width=\"54\" style=\"\">2020年</td></tr><tr style=\"height:13.5pt\"><td class=\"xl65\" style=\"\">金额</td><td class=\"xl65\">2</td><td class=\"xl65\">2</td><td class=\"xl65\">2</td><td class=\"xl65\">2</td><td class=\"xl65\">2</td></tr><tr style=\"height:13.5pt\"><td class=\"xl65\" style=\"\">金额</td><td class=\"xl65\">2</td><td class=\"xl65\">2</td><td class=\"xl65\">2</td><td class=\"xl65\">2</td><td class=\"xl65\">2</td></tr><tr style=\"height:13.5pt\"><td class=\"xl65\" style=\"\">金额</td><td class=\"xl65\">2</td><td class=\"xl65\">2</td><td class=\"xl65\">2</td><td class=\"xl65\">2</td><td class=\"xl65\"></td></tr><tr style=\"height:13.5pt\"><td class=\"xl65\" style=\"\">金额</td><td class=\"xl65\">2</td><td class=\"xl65\">2</td><td class=\"xl65\"></td><td class=\"xl65\">2</td><td class=\"xl65\">2</td></tr></tbody></table><p><br/></p>`
+
+        string = string.replace( /<td.{0,}?>(.{0,}?)<\/td>/g, function( a,b ){
+            if( !b.trim() ){
+                a = a.replace(/(<td.{0,}?>)(.{0,}?)(<\/td>)/g, '$1 <input type="text" /> $3')
+                console.log(a)
+            }
+            return a;
+        })
+        document.write(string)
+    </script>
+</head>
+<body>
+    
+    
+</body>
+</html>

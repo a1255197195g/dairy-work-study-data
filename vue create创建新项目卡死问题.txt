@@ -1,0 +1,2 @@
+1. cd C:\Users\Administrator
+2. 将.vuerc文件的useTaobaoRegistry改为true即可。

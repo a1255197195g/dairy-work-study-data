@@ -1,0 +1,13 @@
+1.在最外层的应用（只有一个package.json文件），执行命令 “yarn add npm-run-all -g”命令。
+2.然后在package.json的脚本中配置需要并行执行的多个命令：
+  
+  #"all:install" 命令会执行后面所有 “install:”开头的命令。主要用于所有项目更新第三方包。
+  #“all:start”命令会执行后面所有的 "start:"开头的命令。主要用于启动所有项目。	
+  "scripts": {
+     "all:install": "npm-run-all --serial install:*",
+     "all:start": "npm-run-all --parallel start:*",
+     "install:main": "cd micro-app-main && yarn",
+     "start:main": "cd micro-app-main && yarn serve",
+     "install:index": "cd micro-app-index && yarn",
+     "start:index": "cd micro-app-index && yarn serve"
+  },

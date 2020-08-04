@@ -1,0 +1,212 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: in hengqi by mengze 
+ * @Date: 2020-07-27 09:56:37
+ * @LastEditors: Seven
+ * @LastEditTime: 2020-07-27 11:48:36
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin="anonymous" integrity="sha384-OZmxTjkv7EQo5XDMPAmIkkvywVeXw59YyYh6zq8UKfkbor13jS+5p8qMTBSA1q+F" src="https://lib.baomitu.com/vue/2.6.11/vue.min.js"></script>
+    <title>${program}-在线文档</title>
+    <link rel="stylesheet" href="./common.css">
+    <link rel="stylesheet" href="./index.css">
+    <style>
+        .menu-item-level-1 {
+            padding-left: 15px !important;
+        }
+        .menu-item-level-2 {
+            padding-left: 30px !important;
+        }
+    </style>
+</head>
+<body >
+    <div class="header">
+        <div class="wrap">
+            <h1>$${program}-在线文档</h1>
+        </div>
+    </div>
+    <div class="main" id="app">
+        <div class="wrap">
+            <!-- <div style="height: 100px;"></div> -->
+            <div class="menu-field">
+                <ul class="menu-content">
+                   $${asideMenuList}
+                </ul>
+            </div>
+            <!-- <div style="height: 60px;"></div> -->
+        </div>
+       
+    </div>
+    <div class="footer">
+        <div class="wrap">
+            <p>2020年于恒企 @copyright 版权所有  by mengze</p>
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                menuList: [
+                    {
+                        id: 1,
+                        name: '文件夹1',
+                        type: 'dir',
+                    },
+                    {
+                        id: 2,
+                        name: '文件夹2',
+                        type: 'dir',
+                        children: [{
+                            id: 1,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 2,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 3,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 4,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 5,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 6,
+                            name: '文件1',
+                            type: 'file'
+                        }]
+                    },
+                    {
+                        id: 3,
+                        name: '文件夹3',
+                        type: 'dir',
+                        children: [{
+                            id: 1,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 2,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 3,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 4,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 5,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 6,
+                            name: '文件1',
+                            type: 'file'
+                        }]
+                    },
+                    {
+                        id: 3,
+                        name: '文件夹3',
+                        type: 'dir',
+                        children: [{
+                            id: 1,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 2,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 3,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 4,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 5,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 6,
+                            name: '文件1',
+                            type: 'file'
+                        }]
+                    },
+                    {
+                        id: 3,
+                        name: '文件夹3',
+                        type: 'dir',
+                        children: [{
+                            id: 1,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 2,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 3,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 4,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 5,
+                            name: '文件1',
+                            type: 'file'
+                        },
+                        {
+                            id: 6,
+                            name: '文件1',
+                            type: 'file'
+                        }]
+                    }
+                ]
+            },
+            mounted(){
+            },
+            methods: {
+                menuItemDidClicked( index, data ){
+                        alert(index)
+                }
+            }
+        });
+    </script>
+</body>
+</html>

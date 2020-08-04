@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+while read line
+do
+ 	
+	if [ ! ${#line} -eq 0 ]
+	then
+	    id $line &>/etc/null
+	    if [ $? -eq 0 ]
+	    then 
+	    	echo "user $line has already exists!"
+	    	continue
+	    else
+	    	useradd $line
+	    	if [ $? -eq 0 ]
+	    	then
+	    		echo $line:"password" | chpasswd 
+	    		echo "user $line creat success, initial passsword is 'passsword'"
+	    	fi
+	    fi
+	fi
+done < $1

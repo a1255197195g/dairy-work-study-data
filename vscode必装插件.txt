@@ -1,0 +1,76 @@
+1. koroFileHeader
+  （1）文件头部添加注释:
+	在文件开头添加注释，记录文件信息。
+	读取用户设置，生成注释模板。
+	保存文件的时候，自动更新最后的编辑时间和编辑人。
+	
+	快捷键： 
+		window： ctrl+alt+i
+		mac:     ctrl+cmd+i	
+		
+
+  (2) 在光标处添加函数注释：
+	在光标初自动生成一个注释模板。
+	支持用户自定义文件注释模板。
+	
+	快捷键：
+		window: ctrl+alt+t
+		mac:    ctrl+cmd+t
+	
+  参考链接：OBKoro1/koro1FileHeader
+	    或者： https://blog.csdn.net/SevenGirl2017/article/details/88424641		
+
+
+2 HTML CSS Support
+ 在编写样式表的时候，自动补全功能大大缩减了编写时间，推荐！
+
+
+3. Vetur 
+	语法高亮，智能感知， Emmet等。
+	格式化功能：
+		  格式化全文：Alt+shift+F 
+		  格式化选中代码:  ctrl+k + ctrl+F
+
+
+4. Eslint
+	语法纠错
+
+5. Auto Close Tag
+	自动闭合HTML/xml标签
+
+6. Auto Rename Tag 
+	自动完成另一侧标签的同步修改
+
+7. JavaScript(ES6) code snippets   
+	ES6语法之恩那个提示以及快速输入。
+
+
+
+
+
+
+2.用户代码片段 -- vue模板
+{
+	"vue-start-template": {
+		"prefix": "!vue",
+		"body": [
+			"<template>",
+			"<div class=''>",
+			"</div>",
+			"</template>",
+			"<script>",
+			"export default {",
+				"name : '', ",
+				"data(){",
+				" return {",
+				"}",
+				"}",
+			"};",
+			"</script>",
+			"<style lang='less' scoped>",
+			"@import ''",
+			"</style>"	
+		],
+		"description": "vue新文件模板"
+	}
+} 

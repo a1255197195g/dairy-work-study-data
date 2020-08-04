@@ -1,0 +1,10 @@
+1. 全局配置好自己的账号密以及邮箱。
+	git config --global user.name "mengze"
+	git config --global user.email "2014375614@qq.com"
+ 
+2. 配置当前仓库从存储的证书中获取密码。
+	git config credential.helper store
+
+
+3. 全局设置
+	git config --global credential.helper store

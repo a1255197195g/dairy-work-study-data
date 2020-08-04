@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+path=$1
+if [ ${#path} -eq 0 ]
+then
+	path="."  
+fi
+
+ls $path -l | awk 'BEGIN{
+	size=0;
+} { size=size+$5 } END{ print "total size is",size }'

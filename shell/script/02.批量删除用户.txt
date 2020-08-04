@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+cat $1 | while read line
+do
+	if [ ${#line} -eq 0 ]
+	then
+		continue
+	fi
+	
+	userdel $line
+	if [ $? -eq 0 ]
+	then
+		echo "user $line remove success"
+	else 
+		echo "user $line remove fail"
+	fi	
+done 
