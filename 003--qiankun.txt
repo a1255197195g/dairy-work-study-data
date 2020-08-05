@@ -1,2 +1,5 @@
 子应用注册源码分析
 https://segmentfault.com/a/1190000022424530?utm_source=tag-newest
+
+乾坤官方文档地址
+https://qiankun.umijs.org/zh

@@ -1,4 +1,6 @@
-https://flutterchina.club/setup-windows/
+1.大神博客  https://mp.weixin.qq.com/s/skXbL-eXZiPD5gHcN6CKAg 
+2.学习笔记  https://blog.csdn.net/zhongad007/category_9915801.html  
+3.官网资料  https://flutterchina.club/setup-windows/
 
 
 flutter - 新浪微博
