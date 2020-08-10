@@ -1,4 +1,5 @@
-1.进入夜神模拟器的目录的路径（ C:\Users\Administrator\AppData\Local\Android\Sdk\platform-tools ），运行 ./nox_adb.exe connect 127.0.0.1:62001。
+0.启动夜神模拟器。
+1.进入夜神模拟器的目录的路径（ C:\Users\Administrator\AppData\Local\Android\Sdk\platform-tools ），运行 nox_adb.exe connect 127.0.0.1:62001。
 2.进入AndroidSDK目录的路径（ D:\Program Files\Nox\bin ），运行./adb.exe connect 127.0.0.1:62001。
 3.vscode编辑器打开main.dart文件。
 4.点击bug调试按钮。
