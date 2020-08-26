@@ -5,3 +5,7 @@
 
 flutter - ĞÂÀËÎ¢²©
 https://github.com/huangruiLearn/flutter_hrlweibo
+
+
+dartÓ¢ÎÄ¹ÙÍøµØÖ·:
+https://dart.dev/guides/language/language-tour#variables
